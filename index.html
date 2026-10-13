@@ -15,17 +15,57 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 30px; text-align: center; z-index: 9999;
   background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%);
+  overflow-y: auto;
 }
 .lock h1 { font-size: 30px; margin-bottom: 10px; background: linear-gradient(135deg, #dc2626, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 3px; }
-.lock .sub { color: #666; font-size: 13px; letter-spacing: 3px; margin-bottom: 30px; }
-.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 20px 0; max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3); }
+.lock .sub { color: #666; font-size: 13px; letter-spacing: 3px; margin-bottom: 20px; }
+.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 12px 0; max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3); position: relative; }
 .lock .did-label { font-size: 11px; color: #666; letter-spacing: 3px; margin-bottom: 8px; }
-.lock .did-value { font-size: 16px; font-family: monospace; color: #fca5a5; word-break: break-all; letter-spacing: 1px; }
-.lock button { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 20px; }
-.lock .status { margin-top: 24px; font-size: 13px; color: #fbbf24; min-height: 24px; max-width: 400px; }
+.lock .did-value { font-size: 16px; font-family: monospace; color: #fca5a5; word-break: break-all; letter-spacing: 1px; padding-right: 40px; }
+.copy-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 20px;
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  color: #fca5a5;
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.copy-btn:active { background: rgba(220, 38, 38, 0.5); transform: scale(0.9); }
+.lock button.primary { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 16px; }
+.lock button.request { padding: 12px 30px; border-radius: 8px; border: 1px solid #444; background: transparent; color: #a5b4fc; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 1px; margin-top: 10px; }
+.lock button.request:active { background: rgba(102, 126, 234, 0.1); }
+.lock .status { margin-top: 16px; font-size: 13px; color: #fbbf24; min-height: 24px; max-width: 400px; }
 .lock .status.err { color: #f87171; }
 .lock .status.ok { color: #4ade80; }
 .lock .icon { font-size: 60px; margin-bottom: 20px; }
+
+.copy-toast {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #14532d, #166534);
+  color: #86efac;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 99999;
+}
+.copy-toast.show { opacity: 1; }
 
 .hidden { display: none !important; }
 .hero { min-height: 100vh; display: flex; align-items: center; padding: 60px 0 40px; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
@@ -48,24 +88,6 @@ section { padding: 60px 0; min-height: 100px; }
 .section-title::before { content: ''; width: 4px; height: 28px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
 .empty-text { color: #444; font-size: 13px; font-style: italic; padding: 20px 0; }
 
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
-.skill-card { padding: 20px; background: #141414; border: 1px solid #222; border-radius: 12px; text-align: center; }
-.skill-card .icon { font-size: 32px; margin-bottom: 8px; }
-.skill-card .name { font-weight: 600; font-size: 14px; color: #ddd; }
-
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-.project-card { padding: 24px; background: #141414; border: 1px solid #222; border-radius: 12px; }
-.project-card h3 { font-size: 20px; margin-bottom: 8px; color: #fff; }
-.project-card p { color: #888; font-size: 14px; margin-bottom: 16px; }
-.project-card .tech { display: flex; gap: 6px; flex-wrap: wrap; }
-.project-card .tech span { font-size: 11px; padding: 4px 10px; background: rgba(220, 38, 38, 0.1); border-radius: 100px; color: #fca5a5; }
-
-.contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
-.contact-link { padding: 16px 24px; background: #141414; border: 1px solid #222; border-radius: 12px; text-decoration: none; color: #e5e5e5; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px; }
-.contact-link .ci { font-size: 24px; }
-.contact-link .ct { font-weight: 600; }
-.contact-link .cs { font-size: 13px; color: #888; }
-
 footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
 
 @media (max-width: 600px) {
@@ -77,16 +99,24 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 </head>
 <body>
 
+<div class="copy-toast" id="copyToast">✅ Copied!</div>
+
 <div class="lock" id="lockScreen">
   <div class="icon">🔒</div>
   <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
   <div class="sub">ACCESS REQUIRED</div>
+  
   <div class="did-box">
     <div class="did-label">YOUR DEVICE ID</div>
     <div class="did-value" id="deviceIdBox">Loading...</div>
+    <button class="copy-btn" onclick="copyDeviceId()" title="Copy">📋</button>
   </div>
-  <p style="font-size: 12px; color: #888; max-width: 400px;">Ye ID owner ko bhejo. Approval ke baad niche button dabao.</p>
-  <button onclick="checkApproval()">CHECK APPROVAL</button>
+  
+  <p style="font-size: 12px; color: #888; max-width: 400px; margin-top: 8px;">ID copy karo owner ko bhejo. Approval ke baad CHECK dabao.</p>
+  
+  <button class="primary" onclick="checkApproval()">✅ CHECK APPROVAL</button>
+  <button class="request" onclick="requestAccess()">📩 REQUEST ACCESS</button>
+  
   <div class="status" id="lockStatus">Waiting for approval...</div>
 </div>
 
@@ -144,6 +174,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 </div>
 
 <script>
+const WEB3FORMS_KEY = 'b5377e7f-c7f6-4c57-849e-5dc3e58604b4';
 const GITHUB_API = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
 
 function getDeviceId() {
@@ -159,6 +190,31 @@ function getDeviceId() {
 
 const DEVICE_ID = getDeviceId();
 document.getElementById('deviceIdBox').textContent = DEVICE_ID;
+
+function copyDeviceId() {
+  const text = DEVICE_ID;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(showCopyToast).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+  function fallbackCopy() {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showCopyToast(); } catch(e) { alert('Copy: ' + text); }
+    document.body.removeChild(ta);
+  }
+}
+
+function showCopyToast() {
+  const toast = document.getElementById('copyToast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
 
 async function checkApproval() {
   const status = document.getElementById('lockStatus');
@@ -182,7 +238,56 @@ async function checkApproval() {
         loadAvatar();
       }, 800);
     } else {
-      status.textContent = '❌ Not approved. Owner ko ye ID bhejo: ' + DEVICE_ID;
+      status.textContent = '❌ Not approved. Owner se approval lo.';
+      status.className = 'status err';
+    }
+  } catch (e) {
+    status.textContent = '⚠️ Error: ' + e.message;
+    status.className = 'status err';
+  }
+}
+
+async function requestAccess() {
+  const status = document.getElementById('lockStatus');
+  status.textContent = '📩 Sending request...';
+  status.className = 'status';
+  
+  let ip = 'unknown';
+  try {
+    const r = await fetch('https://api.ipify.org?format=json');
+    const d = await r.json();
+    ip = d.ip;
+  } catch(e) {}
+  
+  const info = {
+    access_key: WEB3FORMS_KEY,
+    subject: '🎮 Access Request — ' + DEVICE_ID,
+    from_name: 'Obito Uchiha App',
+    'Device ID': DEVICE_ID,
+    'Platform': navigator.platform || 'unknown',
+    'Device Info': navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
+    'Browser': navigator.userAgent,
+    'Screen': window.screen.width + 'x' + window.screen.height,
+    'Language': navigator.language || 'unknown',
+    'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
+    'IP Address': ip,
+    'Time': new Date().toLocaleString('en-IN'),
+    'Touch Device': 'ontouchstart' in window ? 'Yes' : 'No'
+  };
+  
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(info)
+    });
+    const data = await res.json();
+    
+    if (data.success) {
+      status.textContent = '✅ Request sent! Owner ko notification chali gayi.';
+      status.className = 'status ok';
+    } else {
+      status.textContent = '❌ Failed: ' + (data.message || 'Unknown error');
       status.className = 'status err';
     }
   } catch (e) {
