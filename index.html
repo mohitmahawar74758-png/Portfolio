@@ -154,8 +154,10 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 </div>
 
 <script>
-// jsdelivr CDN — no cache, always fresh
-const WHITELIST_URL = 'https://cdn.jsdelivr.net/gh/mohitmahawar74758-png/Portfolio@main/whitelist.json';
+// ============================================
+// GITHUB API — INSTANT, NO CACHE
+// ============================================
+const GITHUB_API = 'https://api.github.com/repos/mohitmahawar74758-png/Portfolio/contents/whitelist.json';
 
 function getDeviceId() {
   let id = localStorage.getItem('akatsuki_device_id');
@@ -175,10 +177,20 @@ async function checkApproval() {
   const status = document.getElementById('lockStatus');
   status.textContent = '⏳ Checking...';
   status.className = 'status';
+  
   try {
-    const res = await fetch(WHITELIST_URL + '?t=' + Date.now(), { cache: 'no-store' });
+    const res = await fetch(GITHUB_API + '?t=' + Date.now(), {
+      cache: 'no-store',
+      headers: { 'Accept': 'application/vnd.github.v3+json' }
+    });
+    
+    if (!res.ok) throw new Error('API error: ' + res.status);
+    
     const data = await res.json();
-    const approved = data.approved || [];
+    // GitHub API base64 encoded content deta hai
+    const decoded = JSON.parse(atob(data.content.replace(/\n/g, '')));
+    const approved = decoded.approved || [];
+    
     if (approved.includes(DEVICE_ID)) {
       status.textContent = '✅ APPROVED! Opening...';
       status.className = 'status ok';
