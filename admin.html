@@ -16,7 +16,6 @@ body {
   overflow-x: hidden;
 }
 
-/* HACKING BACKGROUND */
 body::before {
   content: '';
   position: fixed;
@@ -46,7 +45,6 @@ body::after {
   100% { opacity: 1; }
 }
 
-/* MATRIX CODE RAIN */
 .matrix {
   position: fixed;
   top: 0;
@@ -114,7 +112,6 @@ h1 {
   margin-bottom: 16px; 
 }
 
-/* INPUT WRAPPER WITH SHOW/HIDE */
 .input-wrap {
   position: relative;
   margin-bottom: 12px;
@@ -259,17 +256,17 @@ button {
   50% { transform: translateY(-10px); }
 }
 
-/* HEADER GLOW LINE */
 .header-line {
   height: 2px;
   background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
   margin-bottom: 20px;
   animation: scan 3s linear infinite;
+  background-size: 200% 100%;
 }
 
 @keyframes scan {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .title-glitch {
@@ -280,7 +277,6 @@ button {
 </head>
 <body>
 
-<!-- MATRIX BACKGROUND -->
 <div class="matrix" id="matrix"></div>
 
 <div class="container">
@@ -337,7 +333,6 @@ button {
 </div>
 
 <script>
-// ============ MATRIX CODE RAIN ============
 (function matrixRain() {
   const chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>{}[]()=+-*/';
   const matrix = document.getElementById('matrix');
@@ -358,7 +353,6 @@ button {
   }, 2000);
 })();
 
-// ============ SHOW/HIDE PASSWORD ============
 function togglePass(inputId, btn) {
   const input = document.getElementById(inputId);
   if (input.type === 'password') {
@@ -370,14 +364,12 @@ function togglePass(inputId, btn) {
   }
 }
 
-// ============ CONFIG ============
-const OWNER = 'mohitmahawar74758-png';
+const OWNER = 'obito-uchiha-07';
 const REPO = 'Portfolio';
 const FILE = 'whitelist.json';
 const BRANCH = 'main';
 const PASSCODE = 'OBITO418061';
 
-// ============ UNLOCK ============
 function unlock() {
   const pass = document.getElementById('passInput').value;
   const status = document.getElementById('gateStatus');
@@ -399,7 +391,6 @@ if (sessionStorage.getItem('unlocked') === 'yes') {
   checkToken();
 }
 
-// ============ TOKEN ============
 function checkToken() {
   const token = localStorage.getItem('gh_token');
   if (token) {
@@ -428,7 +419,6 @@ function saveToken() {
   }, 800);
 }
 
-// ============ GITHUB API ============
 async function getFile() {
   const token = localStorage.getItem('gh_token');
   const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + FILE + '?ref=' + BRANCH + '&t=' + Date.now(), {
@@ -459,7 +449,6 @@ async function updateFile(newContent, sha) {
   return await res.json();
 }
 
-// ============ APPROVE / REMOVE ============
 async function approveDevice() {
   const deviceId = document.getElementById('deviceInput').value.trim();
   if (!deviceId) { showStatus('actionStatus', '❌ Device ID daalo', 'err'); return; }
@@ -501,7 +490,6 @@ async function removeDevice() {
   }
 }
 
-// ============ LIST ============
 async function loadList() {
   const list = document.getElementById('deviceList');
   list.innerHTML = '⏳ Loading...';
