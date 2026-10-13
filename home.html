@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🎮 OBITO — Control</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  background: #000;
+  color: #e5e5e5;
+  min-height: 100vh;
+  padding: 24px 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(102,126,234,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102,126,234,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(102,126,234,0.15), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118,75,162,0.15), transparent 50%);
+  pointer-events: none;
+  animation: glow 8s ease-in-out infinite alternate;
+}
+@keyframes glow { 0% {opacity:0.5} 100% {opacity:1} }
+
+.container { max-width: 500px; margin: 0 auto; position: relative; z-index: 1; }
+
+.header { text-align: center; margin-bottom: 32px; }
+.logo {
+  font-size: 72px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 30px rgba(102,126,234,0.6));
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100% {transform:translateY(0)} 50% {transform:translateY(-8px)} }
+h1 {
+  font-size: 28px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+.sub { color: #666; font-size: 12px; letter-spacing: 4px; }
+
+.line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
+  margin: 20px 0 30px;
+  animation: scan 3s linear infinite;
+  background-size: 200% 100%;
+}
+@keyframes scan { 0% {background-position:200% 0} 100% {background-position:-200% 0} }
+
+.section-title {
+  font-size: 11px;
+  color: #666;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.card {
+  display: block;
+  background: rgba(20,20,20,0.95);
+  border: 1px solid #222;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: #e5e5e5;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+.card:hover, .card:active {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(102,126,234,0.25);
+  background: rgba(26,26,46,0.95);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.card:hover::before { opacity: 1; }
+
+.card-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.card-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.icon-blue { background: linear-gradient(135deg, #667eea, #764ba2); }
+.icon-green { background: linear-gradient(135deg, #14532d, #166534); }
+.icon-red { background: linear-gradient(135deg, #450a0a, #7f1d1d); }
+.icon-orange { background: linear-gradient(135deg, #7c2d12, #c2410c); }
+.icon-purple { background: linear-gradient(135deg, #4c1d95, #6d28d9); }
+
+.card-text { flex: 1; }
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: #fff;
+}
+.card-desc {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.4;
+}
+.arrow {
+  font-size: 20px;
+  color: #667eea;
+  flex-shrink: 0;
+  opacity: 0.6;
+  transition: transform 0.25s;
+}
+.card:hover .arrow { transform: translateX(4px); opacity: 1; }
+
+.footer {
+  text-align: center;
+  color: #444;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #1a1a1a;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="logo">🎮</div>
+    <h1>OBITO UCHIHA</h1>
+    <p class="sub">CONTROL CENTER</p>
+  </div>
+
+  <div class="line"></div>
+
+  <div class="section-title">⚡ Quick Access</div>
+
+  <a href="https://mohitmahawar74758-png.github.io/Portfolio/" class="card">
+    <div class="card-inner">
+      <div class="card-icon icon-blue">🌐</div>
+      <div class="card-text">
+        <div class="card-title">My Portfolio</div>
+        <div class="card-desc">Public profile — share with anyone</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+  </a>
+
+  <a href="https://mohitmahawar74758-png.github.io/Portfolio/admin.html" class="card">
+    <div class="card-inner">
+      <div class="card-icon icon-red">🔐</div>
+      <div class="card-text">
+        <div class="card-title">Admin Panel</div>
+        <div class="card-desc">Approve or remove device access</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+  </a>
+
+  <div class="section-title" style="margin-top:24px;">📱 Apps</div>
+
+  <a href="https://freewebtoapk.com" class="card" target="_blank">
+    <div class="card-inner">
+      <div class="card-icon icon-orange">📦</div>
+      <div class="card-text">
+        <div class="card-title">Build New APK</div>
+        <div class="card-desc">Convert portfolio to Android app</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+  </a>
+
+  <div class="section-title" style="margin-top:24px;">📂 Files</div>
+
+  <a href="https://github.com/mohitmahawar74758-png/Portfolio" class="card" target="_blank">
+    <div class="card-inner">
+      <div class="card-icon icon-purple">💻</div>
+      <div class="card-text">
+        <div class="card-title">GitHub Repository</div>
+        <div class="card-desc">All files — index, admin, whitelist</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+  </a>
+
+  <a href="https://github.com/mohitmahawar74758-png/Portfolio/edit/main/whitelist.json" class="card" target="_blank">
+    <div class="card-inner">
+      <div class="card-icon icon-green">📝</div>
+      <div class="card-text">
+        <div class="card-title">Edit Whitelist</div>
+        <div class="card-desc">Manual approval — direct JSON edit</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+  </a>
+
+  <div class="footer">OBITO UCHIHA © 2026</div>
+
+</div>
+
+</body>
+</html>
