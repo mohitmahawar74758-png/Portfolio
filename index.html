@@ -38,10 +38,6 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
 .hero-text .uid-box { display: inline-block; padding: 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
 .hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
 .badge { padding: 7px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-.btn { padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; }
-.btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
-.btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 
 section { padding: 60px 0; min-height: 100px; }
 .section-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
@@ -72,7 +68,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
     <button class="copy-btn" onclick="copyDeviceId()">📋</button>
   </div>
   
-  <p style="font-size: 12px; color: #888; max-width: 400px;">ID copy karo owner ko bhejo. Ya REQUEST dabao — owner ko notification jayegi.</p>
+  <p style="font-size: 12px; color: #888; max-width: 400px;">ID copy karo owner ko bhejo. Ya REQUEST dabao.</p>
   
   <button class="primary" onclick="checkApproval()">✅ CHECK APPROVAL</button>
   <button class="request" onclick="requestAccess()">📩 REQUEST ACCESS</button>
@@ -103,12 +99,12 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
 <script>
 // ============================================
-// WEB3FORMS — EMAIL NOTIFICATION (SAFE)
+// FIREBASE — REQUESTS
 // ============================================
-const WEB3FORMS_KEY = 'b5377e7f-c7f6-4c57-849e-5dc3e58604b4';
+const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
 
 // ============================================
-// GITHUB WHITELIST CHECK
+// GITHUB WHITELIST
 // ============================================
 const WHITELIST_URL = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
 
@@ -126,7 +122,6 @@ function getDeviceId() {
 const DEVICE_ID = getDeviceId();
 document.getElementById('deviceIdBox').textContent = DEVICE_ID;
 
-// ============ COPY DEVICE ID ============
 function copyDeviceId() {
   const text = DEVICE_ID;
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -152,7 +147,6 @@ function showCopyToast() {
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
-// ============ CHECK APPROVAL ============
 async function checkApproval() {
   const status = document.getElementById('lockStatus');
   status.textContent = '⏳ Checking...';
@@ -175,7 +169,7 @@ async function checkApproval() {
         loadAvatar();
       }, 800);
     } else {
-      status.textContent = '❌ Not approved yet. Owner se approval lo.';
+      status.textContent = '❌ Not approved yet.';
       status.className = 'status err';
     }
   } catch (e) {
@@ -184,7 +178,6 @@ async function checkApproval() {
   }
 }
 
-// ============ REQUEST ACCESS (EMAIL) ============
 async function requestAccess() {
   const status = document.getElementById('lockStatus');
   status.textContent = '📩 Sending request...';
@@ -197,30 +190,30 @@ async function requestAccess() {
     ip = d.ip;
   } catch(e) {}
   
-  const info = {
-    access_key: WEB3FORMS_KEY,
-    subject: '🎮 Access Request — ' + DEVICE_ID,
-    from_name: 'Obito Uchiha App',
-    'Device ID': DEVICE_ID,
-    'Platform': navigator.platform || 'unknown',
-    'Device Info': navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
-    'Browser': navigator.userAgent,
-    'Screen': window.screen.width + 'x' + window.screen.height,
-    'Language': navigator.language || 'unknown',
-    'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
-    'IP Address': ip,
-    'Time': new Date().toLocaleString('en-IN')
+  const requestData = {
+    deviceId: DEVICE_ID,
+    time: new Date().toLocaleString('en-IN'),
+    timestamp: Date.now(),
+    platform: navigator.platform || 'unknown',
+    deviceInfo: navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
+    browser: navigator.userAgent,
+    screen: window.screen.width + 'x' + window.screen.height,
+    language: navigator.language || 'unknown',
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
+    ip: ip,
+    status: 'pending'
   };
   
   try {
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(info)
+    const key = DEVICE_ID.replace(/[^A-Z0-9-]/g, '');
+    const res = await fetch(FIREBASE_URL + '/requests/' + key + '.json', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestData)
     });
-    const data = await res.json();
-    if (data.success) {
-      status.textContent = '✅ Request sent! Owner ko email chali gayi.';
+    
+    if (res.ok) {
+      status.textContent = '✅ Request sent! Owner approve karega.';
       status.className = 'status ok';
     } else {
       status.textContent = '❌ Failed. Try again.';
