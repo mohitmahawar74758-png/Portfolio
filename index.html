@@ -6,10 +6,11 @@
 <title>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</title>
 <meta name="theme-color" content="#dc2626">
 <style>
-/* ========== BASE STYLES ========== */
+/* ========== BASE ========== */
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; overflow-x: hidden; }
-.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.hidden { display: none !important; }
 
 /* ========== LOCK SCREEN ========== */
 .lock { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; z-index: 9999; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); overflow-y: auto; }
@@ -30,69 +31,336 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
 .copy-toast { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #14532d; color: #86efac; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99999; }
 .copy-toast.show { opacity: 1; }
 
-.hidden { display: none !important; }
+/* ========== MAIN APP BACKGROUND (HACKER STYLE) ========== */
+#mainApp {
+  min-height: 100vh;
+  background: 
+    radial-gradient(ellipse at 20% 10%, rgba(220,38,38,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(124,58,237,0.12) 0%, transparent 50%),
+    linear-gradient(rgba(0,255,65,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,65,0.025) 1px, transparent 1px),
+    #050505;
+  background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px, 100% 100%;
+  position: relative;
+}
+#mainApp::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, rgba(0,255,65,0.03) 0px, rgba(0,255,65,0.03) 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
+  z-index: 0;
+}
+#mainApp > * { position: relative; z-index: 1; }
 
-/* ========== HERO ========== */
-.hero { min-height: 100vh; display: flex; align-items: center; padding: 60px 0 40px; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
-.hero-inner { display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
-.avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 72px; font-weight: 800; color: white; }
-.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
-.hero-text { max-width: 600px; }
-.hero-text h1 { font-size: 44px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 3px; line-height: 1.2; }
-.hero-text .tagline { font-size: 17px; color: #888; margin-bottom: 24px; }
-.hero-text .uid-box { display: inline-flex; align-items: center; gap: 12px; padding: 8px 14px 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
-.uid-copy-btn { background: rgba(220, 38, 38, 0.3); border: 1px solid rgba(220, 38, 38, 0.5); color: #fca5a5; font-size: 14px; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
-.hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
-.badge { padding: 7px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; width: 100%; max-width: 400px; }
-
-/* ========== NEW: CRAZY ALPACA BUTTON (WePlay wali jagah) ========== */
-.alpaca-btn { 
-  width: 100%; 
-  padding: 18px 24px; 
-  border-radius: 12px; 
-  border: 2px solid #00ff41; 
-  background: linear-gradient(135deg, rgba(0,40,0,0.9), rgba(0,10,0,0.95)); 
-  color: #00ff41; 
-  font-size: 16px; 
-  font-weight: 800; 
-  cursor: pointer; 
-  letter-spacing: 2px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  gap: 12px; 
-  transition: all 0.3s; 
-  box-shadow: 0 0 20px rgba(0,255,65,0.2), inset 0 0 20px rgba(0,255,65,0.05);
+/* ========== HACKER TOP BAR (3-LINE MENU) ========== */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(5,5,5,0.85);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(0,255,65,0.3);
+  box-shadow: 0 0 20px rgba(0,255,65,0.1);
+}
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 12px;
+  background: rgba(0,255,65,0.05);
+  border: 1px solid rgba(0,255,65,0.5);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.menu-btn:active { background: rgba(0,255,65,0.2); box-shadow: 0 0 15px rgba(0,255,65,0.5); }
+.menu-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #00ff41;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0,255,65,0.8);
+  transition: all 0.3s;
+}
+.menu-btn span:nth-child(2) { width: 16px; }
+.top-title {
   font-family: 'Courier New', monospace;
-  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #00ff41;
+  text-shadow: 0 0 10px rgba(0,255,65,0.8);
+}
+.top-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #00ff41;
+  opacity: 0.7;
+}
+.top-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00ff41;
+  box-shadow: 0 0 8px #00ff41;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ========== HERO (NEW: SIDE-BY-SIDE) ========== */
+.hero {
+  padding: 30px 20px 20px;
+  position: relative;
+}
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.hero-avatar {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #dc2626;
+  box-shadow: 0 0 30px rgba(220,38,38,0.6), inset 0 0 20px rgba(0,255,65,0.1);
+  background: linear-gradient(135deg, #1a0000, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 800;
+  color: #dc2626;
+  position: relative;
+}
+.hero-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,255,65,0.5);
+  animation: spin 8s linear infinite;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+.hero-info { flex: 1; min-width: 0; }
+.hero-name {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #fff, #dc2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  word-break: break-word;
+  line-height: 1.2;
+}
+.hero-uid {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(220,38,38,0.15);
+  border: 1px solid rgba(220,38,38,0.4);
+  border-radius: 50px;
+  font-size: 11px;
+  color: #fca5a5;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+.hero-uid .copy-mini {
+  background: rgba(220,38,38,0.3);
+  border: none;
+  color: #fca5a5;
+  font-size: 11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.hero-tagline {
+  font-size: 11px;
+  color: #666;
+  margin-top: 6px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+/* ========== CRAZY ALPACA BUTTON (BIG) ========== */
+.alpaca-main-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 500px;
+  margin: 25px auto 0;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, rgba(0,40,0,0.95), rgba(0,10,0,0.98));
+  border: 2px solid #00ff41;
+  border-radius: 14px;
+  color: #00ff41;
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0 25px rgba(0,255,65,0.25), inset 0 0 20px rgba(0,255,65,0.05);
   position: relative;
   overflow: hidden;
 }
-.alpaca-btn::before {
+.alpaca-main-btn::before {
   content: '';
   position: absolute;
   top: 0; left: -100%;
   width: 100%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(0,255,65,0.3), transparent);
-  transition: left 0.5s;
+  transition: left 0.6s;
 }
-.alpaca-btn:active::before { left: 100%; }
-.alpaca-btn:active { 
-  background: linear-gradient(135deg, rgba(0,60,0,0.95), rgba(0,20,0,0.98)); 
-  box-shadow: 0 0 35px rgba(0,255,65,0.5), inset 0 0 25px rgba(0,255,65,0.15);
+.alpaca-main-btn:active::before { left: 100%; }
+.alpaca-main-btn:active {
+  background: linear-gradient(135deg, rgba(0,60,0,0.98), rgba(0,20,0,1));
+  box-shadow: 0 0 40px rgba(0,255,65,0.6), inset 0 0 30px rgba(0,255,65,0.15);
   transform: scale(0.98);
 }
-.alpaca-btn .icon { font-size: 22px; }
-.alpaca-btn .arrow { margin-left: auto; font-size: 20px; opacity: 0.7; }
+.alpaca-main-btn .icn { font-size: 26px; }
+.alpaca-main-btn .txt { flex: 1; text-align: left; }
+.alpaca-main-btn .sub {
+  display: block;
+  font-size: 9px;
+  color: #008833;
+  letter-spacing: 2px;
+  font-weight: 400;
+  margin-top: 3px;
+}
+.alpaca-main-btn .arrow { font-size: 22px; opacity: 0.8; }
 
-/* ========== SECTION TITLE ========== */
-.section-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
-.section-title::before { content: ''; width: 4px; height: 28px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
+/* ========== FOOTER ========== */
+footer { padding: 30px 0; text-align: center; color: #444; font-size: 12px; border-top: 1px solid rgba(0,255,65,0.1); margin-top: 30px; font-family: 'Courier New', monospace; }
 
-footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
+/* ========== INFO POPUP ========== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 9997;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.popup-overlay.open { display: flex; opacity: 1; }
+.popup {
+  background: linear-gradient(145deg, #0a1a0a, #050505);
+  border: 1px solid #00ff41;
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  font-family: 'Courier New', monospace;
+  color: #00ff41;
+  box-shadow: 0 0 40px rgba(0,255,65,0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s;
+  position: relative;
+}
+.popup-overlay.open .popup { transform: scale(1); }
+.popup::before, .popup::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+.popup::before { top: -1px; left: -1px; border-top: 2px solid #00ff41; border-left: 2px solid #00ff41; }
+.popup::after { bottom: -1px; right: -1px; border-bottom: 2px solid #00ff41; border-right: 2px solid #00ff41; }
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(0,255,65,0.3);
+}
+.popup-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-shadow: 0 0 8px #00ff41;
+}
+.popup-close {
+  background: rgba(0,255,65,0.1);
+  border: 1px solid #00ff41;
+  color: #00ff41;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+}
+.popup-close:active { background: rgba(0,255,65,0.3); }
+.popup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,255,65,0.08);
+  font-size: 12px;
+}
+.popup-row:last-child { border-bottom: none; }
+.popup-label { color: #008833; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.popup-value { color: #00ff41; font-weight: 700; word-break: break-all; text-align: right; margin-left: 12px; }
+.popup-actions {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.popup-actions button {
+  padding: 11px;
+  background: rgba(0,255,65,0.05);
+  border: 1px solid #00ff41;
+  border-radius: 6px;
+  color: #00ff41;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.popup-actions button:active { background: rgba(0,255,65,0.25); }
 
-/* ========== CRAZY ALPACA FULLSCREEN PAGE ========== */
+/* ========== CRAZY ALPACA FULLSCREEN ========== */
 .ca-fullscreen {
   position: fixed;
   inset: 0;
@@ -101,13 +369,14 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
   color: #00ff41;
   font-family: 'Courier New', monospace;
   overflow-y: auto;
-  background-image: linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px), linear-gradient(90deg, rgba(0,255,65,.03) 1px,transparent 1px);
+  background-image: 
+    linear-gradient(rgba(0,255,65,.03) 1px,transparent 1px), 
+    linear-gradient(90deg, rgba(0,255,65,.03) 1px,transparent 1px);
   background-size: 20px 20px;
   transform: translateX(100%);
   transition: transform 0.3s ease;
 }
 .ca-fullscreen.open { transform: translateX(0); }
-
 .ca-back-bar {
   position: sticky;
   top: 0;
@@ -143,8 +412,6 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
   color: #00ff41;
   text-shadow: 0 0 8px #00ff41;
 }
-
-/* CRAZY ALPACA inner content */
 .ca-content { padding: 20px 16px 60px; }
 .ca-profile { padding: 10px 0 20px; text-align: center; }
 .ca-avatar { width: 90px; height: 90px; border-radius: 50%; border: 3px solid #00ff41; box-shadow: 0 0 20px #00ff41; background: #001a00; display: inline-flex; align-items: center; justify-content: center; font-size: 40px; }
@@ -160,7 +427,38 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 .ca-fullscreen textarea { min-height: 110px; resize: vertical; }
 .ca-fullscreen input[type=text] { padding: 10px; font-size: 12px; }
 .ca-fullscreen textarea::placeholder, .ca-fullscreen input::placeholder { color: #004d14; }
-.ca-fullscreen input[type=file] { width: 100%; margin-top: 8px; color: #00ff41; background: #000; border: 1px dashed #00ff41; padding: 10px; font-family: monospace; font-size: 11px; border-radius: 4px; cursor: pointer; }
+/* CUSTOM FILE BUTTON */
+.ca-file-wrap {
+  position: relative;
+  display: block;
+  margin-top: 10px;
+}
+.ca-file-wrap input[type=file] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.ca-file-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px dashed #00ff41;
+  border-radius: 4px;
+  color: #00ff41;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(0,20,0,0.4);
+  transition: all 0.2s;
+}
+.ca-file-wrap:active .ca-file-label { background: rgba(0,255,65,0.15); }
 .ca-fullscreen button { width: 100%; padding: 13px; border: 2px solid #00ff41; border-radius: 4px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 8px; font-family: monospace; letter-spacing: 2px; background: rgba(0,20,0,.8); color: #00ff41; text-transform: uppercase; transition: all .2s; }
 .ca-fullscreen button:active { background: rgba(0,255,65,.15); box-shadow: 0 0 25px #00ff41; }
 .ca-btn-quit { background: rgba(0,20,0,.8); border-color: #00ff41; color: #00ff41; }
@@ -179,10 +477,11 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 .ca-uid-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .ca-uid-badge{background:rgba(0,255,65,.05);border:1px solid #00ff41;padding:5px 10px;border-radius:4px;font-size:11px}
 
-@media (max-width: 600px) {
-  .hero-text h1 { font-size: 30px; }
-  .avatar { width: 150px; height: 150px; }
-  .section-title { font-size: 22px; }
+@media (max-width: 400px) {
+  .hero-avatar { width: 75px; height: 75px; font-size: 30px; }
+  .hero-name { font-size: 18px; }
+  .alpaca-main-btn { font-size: 13px; padding: 16px 18px; }
+  .alpaca-main-btn .icn { font-size: 22px; }
 }
 </style>
 </head>
@@ -209,49 +508,90 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
 <!-- MAIN APP -->
 <div id="mainApp" class="hidden">
-  <div class="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div class="avatar" id="avatarBox">𝕺</div>
-        <div class="hero-text">
-          <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
-          <p class="tagline">Gamer • App Developer • Digital Creator</p>
-          <div class="uid-box">
-            <span>UID: 384969427</span>
-            <button class="uid-copy-btn" onclick="copyUid()" title="Copy UID">📋</button>
-          </div>
-          <div class="badges">
-            <span class="badge">🎮 Gamer</span>
-            <span class="badge">💻 Developer</span>
-            <span class="badge">🎨 Creator</span>
-          </div>
-          <div class="cta">
-            <!-- NEW: CRAZY ALPACA BUTTON (replaced WePlay) -->
-            <button class="alpaca-btn" onclick="openAlpaca()">
-              <span class="icon">🦙</span>
-              <span>CRAZY ALPACA</span>
-              <span class="arrow">→</span>
-            </button>
-          </div>
-        </div>
-      </div>
+
+  <!-- TOP BAR WITH 3-LINE MENU -->
+  <div class="top-bar">
+    <button class="menu-btn" onclick="openInfoPopup()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="top-title">CRAZY ALPACA</div>
+    <div class="top-status">
+      <span class="top-status-dot"></span>
+      ONLINE
     </div>
   </div>
+
+  <!-- HERO (SIDE-BY-SIDE) -->
+  <div class="hero">
+    <div class="hero-row">
+      <div class="hero-avatar" id="avatarBox">𝕺</div>
+      <div class="hero-info">
+        <div class="hero-name">𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</div>
+        <div class="hero-uid">
+          <span>UID: 384969427</span>
+          <button class="copy-mini" onclick="copyUid()" title="Copy">📋</button>
+        </div>
+        <div class="hero-tagline">// ACCESS GRANTED</div>
+      </div>
+    </div>
+
+    <!-- BIG CRAZY ALPACA BUTTON -->
+    <button class="alpaca-main-btn" onclick="openAlpaca()">
+      <span class="icn">🦙</span>
+      <span class="txt">
+        CRAZY ALPACA
+        <span class="sub">TAP TO ENTER</span>
+      </span>
+      <span class="arrow">→</span>
+    </button>
+  </div>
+
   <footer>© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</footer>
 </div>
 
-<!-- ============================================ -->
-<!-- CRAZY ALPACA FULLSCREEN PAGE -->
-<!-- ============================================ -->
+<!-- ========== INFO POPUP ========== -->
+<div class="popup-overlay" id="infoPopup" onclick="if(event.target===this)closeInfoPopup()">
+  <div class="popup">
+    <div class="popup-header">
+      <div class="popup-title">◆ USER INFO</div>
+      <button class="popup-close" onclick="closeInfoPopup()">✕</button>
+    </div>
+
+    <div class="popup-row">
+      <span class="popup-label">Name</span>
+      <span class="popup-value">Obito Uchiha</span>
+    </div>
+    <div class="popup-row">
+      <span class="popup-label">WePlay UID</span>
+      <span class="popup-value" id="popupUid">384969427</span>
+    </div>
+    <div class="popup-row">
+      <span class="popup-label">Device ID</span>
+      <span class="popup-value" id="popupDeviceId" style="font-size:10px;">-</span>
+    </div>
+    <div class="popup-row">
+      <span class="popup-label">Status</span>
+      <span class="popup-value" style="color:#4ade80;">✓ APPROVED</span>
+    </div>
+    <div class="popup-row">
+      <span class="popup-label">Session</span>
+      <span class="popup-value" id="popupSession">-</span>
+    </div>
+
+    <div class="popup-actions">
+      <button onclick="copyUid();closeInfoPopup()">📋 Copy UID</button>
+      <button onclick="copyDeviceId();closeInfoPopup()">🆔 Copy Device</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CRAZY ALPACA FULLSCREEN ========== -->
 <div class="ca-fullscreen" id="caFullscreen">
-  
-  <!-- BACK BAR -->
   <div class="ca-back-bar">
     <button class="ca-back-btn" onclick="closeAlpaca()">← BACK</button>
     <span class="ca-back-title">🦙 CRAZY ALPACA</span>
   </div>
 
-  <!-- CONTENT -->
   <div class="ca-content">
     <div class="ca-profile">
       <div class="ca-avatar">🦙</div>
@@ -268,9 +608,15 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
       <div class="ca-card">
         <div class="ca-card-title">WebSocket Dump Paste</div>
-        <p style="font-size:11px;color:#888;margin-bottom:8px;">Dump paste karo ya file se load karo — UID, Secret, RID sab auto-detect hoga</p>
-        <textarea id="caDumpInput" placeholder=">>> Poora Crazy Alpaca dump yahan paste karo..."></textarea>
-        <input type="file" id="caDumpFile" accept=".txt,.json,.log,text/*">
+        <p style="font-size:11px;color:#888;margin-bottom:8px;">Dump paste karo ya file se load karo</p>
+        <textarea id="caDumpInput" placeholder=">>> Poora dump yahan paste karo..."></textarea>
+
+        <!-- CUSTOM FILE BUTTON (no "No file chosen") -->
+        <label class="ca-file-wrap">
+          <input type="file" id="caDumpFile" accept=".txt,.json,.log,text/*">
+          <span class="ca-file-label">📁 LOAD FILE</span>
+        </label>
+
         <button class="ca-btn-ghost" onclick="caClearDump()">🗑️ Clear Dump</button>
         <button onclick="caParseDump()">⚡ CONNECT</button>
       </div>
@@ -290,7 +636,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
           <div class="ca-uid-list" id="caInfoUids"></div>
         </div>
         <div class="ca-info-item">
-          <div class="ca-info-label">✏️ Manual UIDs (agar auto-detect fail ho)</div>
+          <div class="ca-info-label">✏️ Manual UIDs</div>
           <input type="text" id="caManualUids" placeholder="UID1, UID2, UID3">
           <button class="ca-btn-ghost" onclick="caUseManualUids()">✅ Use Manual</button>
         </div>
@@ -313,7 +659,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
 <script>
 /* ============================================
-   PART 1: YOUR ORIGINAL APP LOGIC
+   PART 1: ORIGINAL APP LOGIC
    ============================================ */
 const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
 const WHITELIST_URL = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
@@ -331,6 +677,11 @@ function getDeviceId() {
 }
 const DEVICE_ID = getDeviceId();
 document.getElementById('deviceIdBox').textContent = DEVICE_ID;
+document.getElementById('popupDeviceId').textContent = DEVICE_ID;
+
+// Session info
+const SESSION_START = new Date();
+document.getElementById('popupSession').textContent = SESSION_START.toLocaleTimeString('en-IN');
 
 function copyDeviceId() { copyText(DEVICE_ID, 'Device ID'); }
 function copyUid() { copyText(MY_UID, 'WePlay UID'); }
@@ -407,7 +758,17 @@ function loadAvatar() {
 }
 
 /* ============================================
-   PART 2: OPEN / CLOSE CRAZY ALPACA FULLSCREEN
+   PART 2: INFO POPUP
+   ============================================ */
+function openInfoPopup() {
+  document.getElementById('infoPopup').classList.add('open');
+}
+function closeInfoPopup() {
+  document.getElementById('infoPopup').classList.remove('open');
+}
+
+/* ============================================
+   PART 3: CRAZY ALPACA OPEN/CLOSE
    ============================================ */
 function openAlpaca() {
   document.getElementById('caFullscreen').classList.add('open');
@@ -419,7 +780,7 @@ function closeAlpaca() {
 }
 
 /* ============================================
-   PART 3: CRAZY ALPACA EXIT TOOL LOGIC
+   PART 4: CRAZY ALPACA EXIT TOOL LOGIC
    ============================================ */
 const CA_REGISTER_CMD = "CMD_HEART_BEAT";
 const CA_EXIT_CMD = "CMD_QUIT";
@@ -466,7 +827,6 @@ function caParseDump() {
   if (!raw) { caLog('Dump paste karo', 'err'); return; }
   caLog(`Parsing dump (${raw.length} chars)...`, 'info');
 
-  // UID DETECTION
   let myUid = null, uidSource = '';
   const sessionCmds = ['CMD_HEART_BEAT', 'CMD_SYNC', 'CMD_MICROPHONE_STATE', 'CMD_QUIT', 'CMD_READY', 'CMD_START'];
   for (const cmd of sessionCmds) {
