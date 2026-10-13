@@ -44,7 +44,7 @@ jobs:
             "appName": "Obito Uchiha",
             "webDir": "www",
             "server": {
-              "url": "https://mohitmahawar74758-png.github.io/Portfolio/",
+              "url": "https://obito-uchiha-07.github.io/Portfolio/",
               "cleartext": true
             }
           }
