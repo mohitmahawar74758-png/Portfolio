@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AKATSUKI MODE</title>
-<meta name="theme-color" content="#667eea">
+<title>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</title>
+<meta name="theme-color" content="#dc2626">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; overflow-x: hidden; }
@@ -28,23 +28,24 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
 .lock .icon { font-size: 60px; margin-bottom: 20px; }
 
 .hidden { display: none !important; }
-.hero { min-height: 100vh; display: flex; align-items: center; padding: 40px 0; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
-.hero-inner { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
-.avatar { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: white; }
-.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.hero-text h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 2px; }
-.hero-text .tagline { font-size: 18px; color: #888; margin-bottom: 24px; }
-.hero-text .uid-box { display: inline-block; padding: 8px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
-.hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-.badge { padding: 6px 14px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
-.cta { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; }
+.hero { min-height: 100vh; display: flex; align-items: center; padding: 60px 0 40px; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
+.hero-inner { display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
+.avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 72px; font-weight: 800; color: white; position: relative; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
+.hero-text { max-width: 600px; }
+.hero-text h1 { font-size: 44px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 3px; line-height: 1.2; }
+.hero-text .tagline { font-size: 17px; color: #888; margin-bottom: 24px; }
+.hero-text .uid-box { display: inline-block; padding: 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; letter-spacing: 1px; }
+.hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
+.badge { padding: 7px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.btn { padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; transition: all 0.2s; }
 .btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
 .btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 
-section { padding: 80px 0; }
-.section-title { font-size: 32px; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center; gap: 12px; }
-.section-title::before { content: ''; width: 4px; height: 32px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
+section { padding: 70px 0; }
+.section-title { font-size: 30px; font-weight: 800; margin-bottom: 36px; display: flex; align-items: center; gap: 12px; }
+.section-title::before { content: ''; width: 4px; height: 30px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
 .skill-card { padding: 20px; background: #141414; border: 1px solid #222; border-radius: 12px; text-align: center; }
@@ -67,9 +68,8 @@ section { padding: 80px 0; }
 footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
 
 @media (max-width: 600px) {
-  .hero-text h1 { font-size: 26px; }
-  .hero-inner { gap: 24px; justify-content: center; text-align: center; }
-  .cta { justify-content: center; }
+  .hero-text h1 { font-size: 30px; letter-spacing: 2px; }
+  .avatar { width: 150px; height: 150px; }
   .section-title { font-size: 24px; }
 }
 </style>
@@ -78,7 +78,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
 <div class="lock" id="lockScreen">
   <div class="icon">🔒</div>
-  <h1>AKATSUKI MODE</h1>
+  <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
   <div class="sub">ACCESS REQUIRED</div>
   <div class="did-box">
     <div class="did-label">YOUR DEVICE ID</div>
@@ -95,7 +95,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
       <div class="hero-inner">
         <div class="avatar" id="avatarBox">𝕺</div>
         <div class="hero-text">
-          <h1>AKATSUKI MODE</h1>
+          <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
           <p class="tagline">Pro Gamer • WePlay Legend • Content Creator</p>
           <div class="uid-box">UID: 384969427</div>
           <div class="badges">
@@ -150,22 +150,19 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
     </div>
   </section>
 
-  <footer>© 2026 AKATSUKI MODE</footer>
+  <footer>© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</footer>
 </div>
 
 <script>
-// ============================================
-// GITHUB API — INSTANT, NO CACHE
-// ============================================
 const GITHUB_API = 'https://api.github.com/repos/mohitmahawar74758-png/Portfolio/contents/whitelist.json';
 
 function getDeviceId() {
-  let id = localStorage.getItem('akatsuki_device_id');
+  let id = localStorage.getItem('obito_device_id');
   if (!id) {
     const rand = Math.random().toString(36).substr(2, 6).toUpperCase();
     const time = Date.now().toString(36).toUpperCase().slice(-4);
     id = 'OB-' + rand + '-' + time;
-    localStorage.setItem('akatsuki_device_id', id);
+    localStorage.setItem('obito_device_id', id);
   }
   return id;
 }
@@ -177,20 +174,15 @@ async function checkApproval() {
   const status = document.getElementById('lockStatus');
   status.textContent = '⏳ Checking...';
   status.className = 'status';
-  
   try {
     const res = await fetch(GITHUB_API + '?t=' + Date.now(), {
       cache: 'no-store',
       headers: { 'Accept': 'application/vnd.github.v3+json' }
     });
-    
     if (!res.ok) throw new Error('API error: ' + res.status);
-    
     const data = await res.json();
-    // GitHub API base64 encoded content deta hai
     const decoded = JSON.parse(atob(data.content.replace(/\n/g, '')));
     const approved = decoded.approved || [];
-    
     if (approved.includes(DEVICE_ID)) {
       status.textContent = '✅ APPROVED! Opening...';
       status.className = 'status ok';
