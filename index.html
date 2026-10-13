@@ -35,9 +35,15 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
 .hero-text { max-width: 600px; }
 .hero-text h1 { font-size: 44px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 3px; line-height: 1.2; }
 .hero-text .tagline { font-size: 17px; color: #888; margin-bottom: 24px; }
-.hero-text .uid-box { display: inline-block; padding: 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
+.hero-text .uid-box { display: inline-flex; align-items: center; gap: 12px; padding: 8px 14px 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
+.uid-copy-btn { background: rgba(220, 38, 38, 0.3); border: 1px solid rgba(220, 38, 38, 0.5); color: #fca5a5; font-size: 14px; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; }
+.uid-copy-btn:active { background: rgba(220, 38, 38, 0.6); transform: scale(0.9); }
 .hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
 .badge { padding: 7px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.btn { padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; transition: all 0.2s; cursor: pointer; }
+.btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
+.btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 
 section { padding: 60px 0; min-height: 100px; }
 .section-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
@@ -83,31 +89,36 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
         <div class="avatar" id="avatarBox">𝕺</div>
         <div class="hero-text">
           <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
-          <p class="tagline">Pro Gamer • WePlay Legend • Content Creator</p>
-          <div class="uid-box">UID: 384969427</div>
+          <p class="tagline">Gamer • App Developer • Digital Creator</p>
+          <div class="uid-box">
+            <span>UID: 384969427</span>
+            <button class="uid-copy-btn" onclick="copyUid()" title="Copy UID">📋</button>
+          </div>
           <div class="badges">
             <span class="badge">🎮 Gamer</span>
-            <span class="badge">🏆 Pro Player</span>
-            <span class="badge">⚡ Legend</span>
+            <span class="badge">💻 Developer</span>
+            <span class="badge">🎨 Creator</span>
+          </div>
+          <div class="cta">
+            <a href="weplay://" class="btn btn-primary">Contact Me on WePlay</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  
   <footer>© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</footer>
 </div>
 
 <script>
 // ============================================
-// FIREBASE — REQUESTS
+// FIREBASE
 // ============================================
 const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
-
-// ============================================
-// GITHUB WHITELIST
-// ============================================
 const WHITELIST_URL = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
+const MY_UID = '384969427';
 
+// ============ DEVICE ID ============
 function getDeviceId() {
   let id = localStorage.getItem('obito_device_id');
   if (!id) {
@@ -122,10 +133,19 @@ function getDeviceId() {
 const DEVICE_ID = getDeviceId();
 document.getElementById('deviceIdBox').textContent = DEVICE_ID;
 
+// ============ COPY DEVICE ID ============
 function copyDeviceId() {
-  const text = DEVICE_ID;
+  copyText(DEVICE_ID, 'Device ID');
+}
+
+// ============ COPY UID ============
+function copyUid() {
+  copyText(MY_UID, 'WePlay UID');
+}
+
+function copyText(text, label) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(showCopyToast).catch(fallbackCopy);
+    navigator.clipboard.writeText(text).then(() => showCopyToast(label + ' copied!')).catch(fallbackCopy);
   } else {
     fallbackCopy();
   }
@@ -136,17 +156,19 @@ function copyDeviceId() {
     ta.style.opacity = '0';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); showCopyToast(); } catch(e) { alert('Copy: ' + text); }
+    try { document.execCommand('copy'); showCopyToast(label + ' copied!'); } catch(e) { alert('Copy: ' + text); }
     document.body.removeChild(ta);
   }
 }
 
-function showCopyToast() {
+function showCopyToast(msg) {
   const toast = document.getElementById('copyToast');
+  toast.textContent = '✅ ' + msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
+// ============ CHECK APPROVAL ============
 async function checkApproval() {
   const status = document.getElementById('lockStatus');
   status.textContent = '⏳ Checking...';
@@ -178,6 +200,7 @@ async function checkApproval() {
   }
 }
 
+// ============ REQUEST ACCESS ============
 async function requestAccess() {
   const status = document.getElementById('lockStatus');
   status.textContent = '📩 Sending request...';
@@ -211,7 +234,6 @@ async function requestAccess() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestData)
     });
-    
     if (res.ok) {
       status.textContent = '✅ Request sent! Owner approve karega.';
       status.className = 'status ok';
