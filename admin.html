@@ -13,17 +13,21 @@ body::after { content: ''; position: fixed; inset: 0; background: radial-gradien
 h1 { font-size: 24px; margin-bottom: 8px; color: #a5b4fc; text-shadow: 0 0 20px rgba(102,126,234,0.5); }
 .sub { color: #666; font-size: 13px; margin-bottom: 30px; letter-spacing: 2px; }
 .card { background: rgba(20, 20, 20, 0.95); border: 1px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; backdrop-filter: blur(10px); }
-.card h2 { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.card h2 { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .input-wrap { position: relative; margin-bottom: 12px; }
 .input-wrap input { width: 100%; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; padding: 12px 50px 12px 16px; color: #e5e5e5; font-size: 14px; font-family: monospace; outline: none; }
 .input-wrap input:focus { border-color: #667eea; }
 .toggle-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: #667eea; font-size: 20px; cursor: pointer; padding: 4px 8px; }
 button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+button:active { transform: scale(0.97); }
 .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 100%; }
 .btn-approve { background: linear-gradient(135deg, #14532d, #166534); color: #86efac; padding: 10px 16px; font-size: 13px; flex: 1; }
 .btn-reject { background: linear-gradient(135deg, #450a0a, #7f1d1d); color: #fca5a5; padding: 10px 16px; font-size: 13px; flex: 1; }
+.btn-block { background: linear-gradient(135deg, #7c2d12, #9a3412); color: #fdba74; font-size: 12px; padding: 8px 14px; }
+.btn-unblock { background: linear-gradient(135deg, #166534, #14532d); color: #86efac; font-size: 12px; padding: 8px 14px; }
 .btn-danger { background: #7f1d1d; color: #fca5a5; font-size: 12px; padding: 8px 14px; }
 .btn-refresh { background: #1e3a8a; color: #93c5fd; padding: 10px 20px; width: 100%; margin-bottom: 16px; }
+.btn-removeall { background: linear-gradient(135deg, #7f1d1d, #991b1b); color: white; padding: 10px 20px; width: 100%; margin-top: 12px; font-size: 13px; }
 
 .request-item { background: #0a0a0a; border: 1px solid #222; border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 3px solid #fbbf24; }
 .request-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
@@ -36,7 +40,13 @@ button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; 
 .request-actions { display: flex; gap: 8px; margin-top: 14px; }
 
 .device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #0a0a0a; border-radius: 8px; margin-bottom: 8px; border: 1px solid #222; gap: 8px; }
-.device-id { font-family: monospace; font-size: 13px; color: #a5b4fc; word-break: break-all; flex: 1; }
+.device-num { font-family: monospace; font-size: 13px; color: #667eea; font-weight: bold; min-width: 32px; }
+.device-id { font-family: monospace; font-size: 12px; color: #a5b4fc; word-break: break-all; flex: 1; }
+.device-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.blocked-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #0a0a0a; border-radius: 8px; margin-bottom: 8px; border: 1px solid #7c2d12; border-left: 3px solid #f97316; gap: 8px; }
+.blocked-num { font-family: monospace; font-size: 13px; color: #f97316; font-weight: bold; min-width: 32px; }
+.blocked-id { font-family: monospace; font-size: 12px; color: #fdba74; word-break: break-all; flex: 1; }
 
 .status { padding: 12px; border-radius: 8px; font-size: 13px; margin-top: 12px; display: none; }
 .status.show { display: block; }
@@ -44,8 +54,14 @@ button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; 
 .status.err { background: #450a0a; color: #fca5a5; }
 .hidden { display: none !important; }
 .lock-icon { font-size: 64px; text-align: center; margin-bottom: 20px; }
-.badge-count { display: inline-block; background: #dc2626; color: white; padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: bold; margin-left: 8px; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.badge-count { display: inline-block; background: #dc2626; color: white; padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: bold; }
+.badge-count.green { background: #166534; }
+.badge-count.orange { background: #9a3412; }
+
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #667eea; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state { color: #666; text-align: center; padding: 30px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -84,13 +100,19 @@ button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; 
 <div class="card hidden" id="requestsCard">
 <h2>🔔 Access Requests <span class="badge-count" id="requestCount">0</span></h2>
 <button class="btn-refresh" onclick="loadRequests()">🔄 Refresh Requests</button>
-<div id="requestsList">Loading...</div>
+<div id="requestsList"></div>
 </div>
 
 <div class="card hidden" id="listCard">
-<h2>✅ Approved Devices</h2>
+<h2>✅ Approved Devices <span class="badge-count green" id="approvedCount">0</span></h2>
 <button class="btn-refresh" onclick="loadApproved()">🔄 Refresh Approved</button>
-<div id="deviceList">Loading...</div>
+<div id="deviceList"></div>
+<button class="btn-removeall hidden" id="removeAllBtn" onclick="removeAllApproved()">🗑️ REMOVE ALL APPROVED</button>
+</div>
+
+<div class="card hidden" id="blockedCard">
+<h2>🚫 Blocked Devices <span class="badge-count orange" id="blockedCount">0</span></h2>
+<div id="blockedList"></div>
 </div>
 
 </div>
@@ -101,11 +123,10 @@ const OWNER = 'obito-uchiha-07';
 const REPO = 'Portfolio';
 const PASSCODE = 'OBITO418061';
 const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
-
 let cachedToken = '';
 
-function togglePass(inputId, btn) {
-  const input = document.getElementById(inputId);
+function togglePass(id, btn) {
+  const input = document.getElementById(id);
   if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
   else { input.type = 'password'; btn.textContent = '👁️'; }
 }
@@ -138,6 +159,7 @@ function checkToken() {
     document.getElementById('tokenCard').classList.add('hidden');
     document.getElementById('requestsCard').classList.remove('hidden');
     document.getElementById('listCard').classList.remove('hidden');
+    document.getElementById('blockedCard').classList.remove('hidden');
     loadRequests();
     loadApproved();
   } else {
@@ -147,10 +169,7 @@ function checkToken() {
 
 function saveToken() {
   const token = document.getElementById('tokenInput').value.trim();
-  if (!token || !token.startsWith('ghp_')) {
-    showStatus('tokenStatus', '❌ Invalid token!', 'err');
-    return;
-  }
+  if (!token || !token.startsWith('ghp_')) { showStatus('tokenStatus', '❌ Invalid token!', 'err'); return; }
   localStorage.setItem('gh_token', token);
   cachedToken = token;
   showStatus('tokenStatus', '✅ Token saved!', 'ok');
@@ -158,9 +177,10 @@ function saveToken() {
     document.getElementById('tokenCard').classList.add('hidden');
     document.getElementById('requestsCard').classList.remove('hidden');
     document.getElementById('listCard').classList.remove('hidden');
+    document.getElementById('blockedCard').classList.remove('hidden');
     loadRequests();
     loadApproved();
-  }, 800);
+  }, 500);
 }
 
 async function getJsonFile(filename) {
@@ -177,41 +197,30 @@ async function updateJsonFile(filename, newContent, sha, msg) {
   const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + filename, {
     method: 'PUT',
     headers: { 'Authorization': 'token ' + cachedToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      message: msg,
-      content: btoa(JSON.stringify(newContent, null, 2)),
-      sha: sha,
-      branch: 'main'
-    })
+    body: JSON.stringify({ message: msg, content: btoa(JSON.stringify(newContent, null, 2)), sha: sha, branch: 'main' })
   });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || 'Update failed');
-  }
+  if (!res.ok) { const err = await res.json(); throw new Error(err.message || 'Update failed'); }
   return await res.json();
 }
 
+// ============ REQUESTS ============
 async function loadRequests() {
   const list = document.getElementById('requestsList');
-  list.innerHTML = '⏳ Loading from Firebase...';
+  list.innerHTML = '<div class="empty-state"><span class="spinner"></span>Loading...</div>';
   try {
     const res = await fetch(FIREBASE_URL + '/requests.json?t=' + Date.now());
     const data = await res.json();
-    
     if (!data) {
       document.getElementById('requestCount').textContent = '0';
-      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No pending requests</div>';
+      list.innerHTML = '<div class="empty-state">📭 No pending requests</div>';
       return;
     }
-    
     const requests = Object.values(data).filter(r => r && r.status === 'pending');
     document.getElementById('requestCount').textContent = requests.length;
-    
     if (requests.length === 0) {
-      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No pending requests</div>';
+      list.innerHTML = '<div class="empty-state">📭 No pending requests</div>';
       return;
     }
-    
     list.innerHTML = requests.map(r => `
       <div class="request-item">
         <div class="request-header">
@@ -230,38 +239,42 @@ async function loadRequests() {
         </div>
       </div>
     `).join('');
-  } catch (e) {
-    list.innerHTML = '<div style="color:#fca5a5;">❌ Error: ' + e.message + '</div>';
-  }
+  } catch (e) { list.innerHTML = '<div class="empty-state" style="color:#fca5a5;">❌ ' + e.message + '</div>'; }
 }
 
 async function approveRequest(deviceId) {
-  if (!confirm('Approve ' + deviceId + '?')) return;
   try {
+    // Save to whitelist
     const wl = await getJsonFile('whitelist.json');
     if (!wl.content.approved) wl.content.approved = [];
     if (!wl.content.approved.includes(deviceId)) {
       wl.content.approved.push(deviceId);
       await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Approve ' + deviceId);
     }
+    // Remove from blocked if present
+    await unblockDevice(deviceId, true);
+    // Delete request
     await deleteRequest(deviceId);
-    alert('✅ Approved: ' + deviceId);
-    loadRequests();
-    loadApproved();
-  } catch (e) {
-    alert('Error: ' + e.message);
-  }
+    
+    // INSTANT update — bina wait
+    const item = event.target.closest('.request-item');
+    if (item) item.style.opacity = '0.3';
+    event.target.textContent = '✅ DONE';
+    event.target.disabled = true;
+    
+    // Refresh both lists immediately
+    setTimeout(() => { loadRequests(); loadApproved(); }, 300);
+  } catch (e) { alert('Error: ' + e.message); }
 }
 
 async function rejectRequest(deviceId) {
   if (!confirm('Reject ' + deviceId + '?')) return;
   try {
     await deleteRequest(deviceId);
-    alert('❌ Rejected: ' + deviceId);
-    loadRequests();
-  } catch (e) {
-    alert('Error: ' + e.message);
-  }
+    const item = event.target.closest('.request-item');
+    if (item) item.style.opacity = '0.3';
+    setTimeout(() => { loadRequests(); }, 300);
+  } catch (e) { alert('Error: ' + e.message); }
 }
 
 async function deleteRequest(deviceId) {
@@ -269,22 +282,36 @@ async function deleteRequest(deviceId) {
   await fetch(FIREBASE_URL + '/requests/' + key + '.json', { method: 'DELETE' });
 }
 
+// ============ APPROVED ============
 async function loadApproved() {
   const list = document.getElementById('deviceList');
-  list.innerHTML = '⏳ Loading...';
+  list.innerHTML = '<div class="empty-state"><span class="spinner"></span>Loading...</div>';
   try {
     const { content } = await getJsonFile('whitelist.json');
     const approved = content.approved || [];
+    document.getElementById('approvedCount').textContent = approved.length;
+    
     if (approved.length === 0) {
-      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No devices approved</div>';
+      list.innerHTML = '<div class="empty-state">📭 No devices approved</div>';
+      document.getElementById('removeAllBtn').classList.add('hidden');
       return;
     }
-    list.innerHTML = approved.map(id => 
-      '<div class="device-item"><span class="device-id">' + id + '</span><button class="btn-danger" onclick="removeApproved(\'' + id + '\')">❌ Remove</button></div>'
-    ).join('');
-  } catch (e) {
-    list.innerHTML = '<div style="color:#fca5a5;">❌ Error: ' + e.message + '</div>';
-  }
+    
+    document.getElementById('removeAllBtn').classList.remove('hidden');
+    list.innerHTML = approved.map((id, i) => `
+      <div class="device-item">
+        <span class="device-num">${i + 1}.</span>
+        <span class="device-id">${id}</span>
+        <div class="device-actions">
+          <button class="btn-block" onclick="blockDevice('${id}')" title="Block">🚫</button>
+          <button class="btn-danger" onclick="removeApproved('${id}')" title="Remove">❌</button>
+        </div>
+      </div>
+    `).join('');
+    
+    // Load blocked too
+    await loadBlocked();
+  } catch (e) { list.innerHTML = '<div class="empty-state" style="color:#fca5a5;">❌ ' + e.message + '</div>'; }
 }
 
 async function removeApproved(deviceId) {
@@ -294,9 +321,99 @@ async function removeApproved(deviceId) {
     wl.content.approved = (wl.content.approved || []).filter(id => id !== deviceId);
     await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Remove ' + deviceId);
     loadApproved();
+  } catch (e) { alert('Error: ' + e.message); }
+}
+
+async function removeAllApproved() {
+  if (!confirm('⚠️ REMOVE ALL approved devices? Ye undo nahi hoga!')) return;
+  if (!confirm('Pakka? Sab approved devices hat jayenge.')) return;
+  try {
+    const wl = await getJsonFile('whitelist.json');
+    wl.content.approved = [];
+    await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Remove ALL approved');
+    alert('✅ All approved removed');
+    loadApproved();
+  } catch (e) { alert('Error: ' + e.message); }
+}
+
+// ============ BLOCKED ============
+async function blockDevice(deviceId) {
+  if (!confirm('Block ' + deviceId + '?\n\nID blocked list me chali jayegi.\nAccess hat jayega, par ID save rahegi.')) return;
+  try {
+    // Add to blocked
+    const bl = await getJsonFile('blocked.json');
+    if (!bl.content.blocked) bl.content.blocked = [];
+    if (!bl.content.blocked.includes(deviceId)) {
+      bl.content.blocked.push(deviceId);
+      await updateJsonFile('blocked.json', bl.content, bl.sha, 'Block ' + deviceId);
+    }
+    // Remove from approved
+    const wl = await getJsonFile('whitelist.json');
+    wl.content.approved = (wl.content.approved || []).filter(id => id !== deviceId);
+    await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Remove ' + deviceId);
+    
+    alert('🚫 Blocked: ' + deviceId);
+    loadApproved();
+  } catch (e) { alert('Error: ' + e.message); }
+}
+
+async function loadBlocked() {
+  const list = document.getElementById('blockedList');
+  try {
+    const { content } = await getJsonFile('blocked.json');
+    const blocked = content.blocked || [];
+    document.getElementById('blockedCount').textContent = blocked.length;
+    
+    if (blocked.length === 0) {
+      list.innerHTML = '<div class="empty-state">📭 No blocked devices</div>';
+      return;
+    }
+    
+    list.innerHTML = blocked.map((id, i) => `
+      <div class="blocked-item">
+        <span class="blocked-num">${i + 1}.</span>
+        <span class="blocked-id">${id}</span>
+        <div class="device-actions">
+          <button class="btn-unblock" onclick="unblockDevice('${id}')" title="Unblock">✅</button>
+          <button class="btn-danger" onclick="deleteBlocked('${id}')" title="Delete">❌</button>
+        </div>
+      </div>
+    `).join('');
   } catch (e) {
-    alert('Error: ' + e.message);
+    list.innerHTML = '<div class="empty-state">📭 No blocked devices</div>';
   }
+}
+
+async function unblockDevice(deviceId, silent) {
+  try {
+    const bl = await getJsonFile('blocked.json').catch(() => ({ content: { blocked: [] }, sha: null }));
+    if (bl.content.blocked && bl.content.blocked.includes(deviceId)) {
+      bl.content.blocked = bl.content.blocked.filter(id => id !== deviceId);
+      if (bl.sha) {
+        await updateJsonFile('blocked.json', bl.content, bl.sha, 'Unblock ' + deviceId);
+      }
+    }
+    if (!silent) {
+      // Add back to approved
+      const wl = await getJsonFile('whitelist.json');
+      if (!wl.content.approved.includes(deviceId)) {
+        wl.content.approved.push(deviceId);
+        await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Re-approve ' + deviceId);
+      }
+      alert('✅ Unblocked: ' + deviceId);
+      loadApproved();
+    }
+  } catch (e) { if (!silent) alert('Error: ' + e.message); }
+}
+
+async function deleteBlocked(deviceId) {
+  if (!confirm('Delete ' + deviceId + ' from blocked list?')) return;
+  try {
+    const bl = await getJsonFile('blocked.json');
+    bl.content.blocked = (bl.content.blocked || []).filter(id => id !== deviceId);
+    await updateJsonFile('blocked.json', bl.content, bl.sha, 'Delete ' + deviceId);
+    loadApproved();
+  } catch (e) { alert('Error: ' + e.message); }
 }
 
 function showStatus(id, msg, type) {
