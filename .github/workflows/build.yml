@@ -24,13 +24,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Install Capacitor
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Setup Project Files
+        run: |
+          mkdir -p www
+          cp index.html www/ 2>/dev/null || true
+          cp dp.jpg www/ 2>/dev/null || true
+          cp manifest.json www/ 2>/dev/null || true
 
       - name: Create Capacitor Config
         run: |
@@ -45,13 +49,6 @@ jobs:
             }
           }
           EOF
-          mkdir -p www
-          cp index.html www/ 2>/dev/null || echo "no html"
-          cp dp.jpg www/ 2>/dev/null || echo "no dp"
-          cp manifest.json www/ 2>/dev/null || echo "no manifest"
-
-      - name: Init Capacitor
-        run: npx cap init "AKATSUKI MODE" "com.akatsuki.mode" --web-dir=www
 
       - name: Add Android Platform
         run: npx cap add android
@@ -63,7 +60,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
