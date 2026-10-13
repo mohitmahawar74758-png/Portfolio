@@ -3,157 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🎮 OBITO — Control</title>
+<title>🎮 OBITO — Control Center</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
-  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Courier New', monospace;
   background: #000;
   color: #e5e5e5;
   min-height: 100vh;
-  padding: 24px 16px;
+  padding: 24px 16px 60px;
   position: relative;
   overflow-x: hidden;
 }
+
 body::before {
   content: '';
   position: fixed; inset: 0;
   background-image:
-    linear-gradient(rgba(102,126,234,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(102,126,234,0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
+    linear-gradient(rgba(102,126,234,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102,126,234,0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
   pointer-events: none;
+  z-index: 0;
 }
+
 body::after {
   content: '';
   position: fixed; inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(102,126,234,0.15), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(118,75,162,0.15), transparent 50%);
+    radial-gradient(circle at 20% 10%, rgba(102,126,234,0.18), transparent 45%),
+    radial-gradient(circle at 80% 90%, rgba(118,75,162,0.18), transparent 45%);
   pointer-events: none;
-  animation: glow 8s ease-in-out infinite alternate;
+  animation: glow 6s ease-in-out infinite alternate;
+  z-index: 0;
 }
-@keyframes glow { 0% {opacity:0.5} 100% {opacity:1} }
+@keyframes glow { 0% {opacity:0.4} 100% {opacity:1} }
 
-.container { max-width: 500px; margin: 0 auto; position: relative; z-index: 1; }
+.container { max-width: 480px; margin: 0 auto; position: relative; z-index: 1; }
 
-.header { text-align: center; margin-bottom: 32px; }
+.header { text-align: center; padding: 20px 0 10px; }
 .logo {
-  font-size: 72px;
-  margin-bottom: 12px;
-  filter: drop-shadow(0 0 30px rgba(102,126,234,0.6));
+  font-size: 64px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 25px rgba(102,126,234,0.7));
   animation: float 3s ease-in-out infinite;
+  display: inline-block;
 }
 @keyframes float { 0%,100% {transform:translateY(0)} 50% {transform:translateY(-8px)} }
 h1 {
-  font-size: 28px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-size: 22px;
+  background: linear-gradient(135deg, #a5b4fc, #667eea, #764ba2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   margin-bottom: 6px;
+  font-weight: 900;
 }
-.sub { color: #666; font-size: 12px; letter-spacing: 4px; }
-
-.line {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
-  margin: 20px 0 30px;
-  animation: scan 3s linear infinite;
-  background-size: 200% 100%;
+.sub {
+  color: #555;
+  font-size: 10px;
+  letter-spacing: 5px;
+  margin-bottom: 4px;
 }
-@keyframes scan { 0% {background-position:200% 0} 100% {background-position:-200% 0} }
-
-.section-title {
+.time {
+  color: #667eea;
   font-size: 11px;
-  color: #666;
-  letter-spacing: 3px;
-  margin-bottom: 12px;
-  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+  font-family: monospace;
 }
 
-.card {
-  display: block;
-  background: rgba(20,20,20,0.95);
-  border: 1px solid #222;
-  border-radius: 14px;
-  padding: 18px 20px;
-  margin-bottom: 12px;
-  text-decoration: none;
-  color: #e5e5e5;
-  transition: all 0.25s;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
+.main-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 24px 0;
+  color: #667eea;
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  opacity: 0.7;
 }
-.card:hover, .card:active {
-  border-color: #667eea;
-  transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(102,126,234,0.25);
-  background: rgba(26,26,46,0.95);
-}
-.card::before {
+.main-divider::before,
+.main-divider::after {
   content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
+  flex: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, #667eea, transparent);
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 14px;
+  font-size: 11px;
+  color: #667eea;
+  letter-spacing: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.section::before { content: '▓'; font-size: 8px; }
+.section::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #667eea, transparent);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(15,15,20,0.85);
+  border: 1px solid #1f1f2e;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #e5e5e5;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+.link::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #667eea, #764ba2);
   opacity: 0;
   transition: opacity 0.25s;
 }
-.card:hover::before { opacity: 1; }
-
-.card-inner {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.link:active {
+  transform: scale(0.98);
+  border-color: #667eea;
+  background: rgba(26,26,46,0.95);
+  box-shadow: 0 8px 30px rgba(102,126,234,0.25);
 }
-.card-icon {
-  width: 52px; height: 52px;
-  border-radius: 12px;
+.link:active::before { opacity: 1; }
+
+.link-icon {
+  width: 46px; height: 46px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 22px;
   flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
-.icon-blue { background: linear-gradient(135deg, #667eea, #764ba2); }
-.icon-green { background: linear-gradient(135deg, #14532d, #166534); }
-.icon-red { background: linear-gradient(135deg, #450a0a, #7f1d1d); }
-.icon-orange { background: linear-gradient(135deg, #7c2d12, #c2410c); }
-.icon-purple { background: linear-gradient(135deg, #4c1d95, #6d28d9); }
+.i-blue { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
+.i-green { background: linear-gradient(135deg, #166534, #22c55e); }
+.i-red { background: linear-gradient(135deg, #991b1b, #ef4444); }
+.i-orange { background: linear-gradient(135deg, #9a3412, #ea580c); }
+.i-purple { background: linear-gradient(135deg, #6b21a8, #a855f7); }
+.i-cyan { background: linear-gradient(135deg, #0e7490, #06b6d4); }
 
-.card-text { flex: 1; }
-.card-title {
-  font-size: 16px;
+.link-text { flex: 1; min-width: 0; }
+.link-title {
+  font-size: 14px;
   font-weight: 700;
-  margin-bottom: 4px;
   color: #fff;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  font-family: -apple-system, 'Segoe UI', sans-serif;
 }
-.card-desc {
-  font-size: 12px;
-  color: #888;
+.link-desc {
+  font-size: 10px;
+  color: #666;
   line-height: 1.4;
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  letter-spacing: 0.3px;
 }
-.arrow {
-  font-size: 20px;
+.link-arrow {
+  font-size: 16px;
   color: #667eea;
+  opacity: 0.5;
+  transition: all 0.25s;
   flex-shrink: 0;
-  opacity: 0.6;
-  transition: transform 0.25s;
 }
-.card:hover .arrow { transform: translateX(4px); opacity: 1; }
+.link:active .link-arrow { transform: translateX(4px); opacity: 1; }
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 0;
+  color: #333;
+  font-size: 9px;
+  letter-spacing: 2px;
+  user-select: none;
+}
+.divider span {
+  color: #4a4a6e;
+  font-weight: bold;
+  opacity: 0.6;
+}
 
 .footer {
   text-align: center;
-  color: #444;
-  font-size: 11px;
-  letter-spacing: 3px;
+  color: #333;
+  font-size: 10px;
+  letter-spacing: 4px;
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid #151520;
+  font-family: monospace;
 }
+.footer .heart { color: #ef4444; animation: beat 1s infinite; display: inline-block; }
+@keyframes beat { 0%,100% {transform:scale(1)} 50% {transform:scale(1.2)} }
+
+.status-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+  animation: blink 1.5s infinite;
+}
+@keyframes blink { 0%,100% {opacity:1} 50% {opacity:0.3} }
 </style>
 </head>
 <body>
@@ -164,72 +235,102 @@ h1 {
     <div class="logo">🎮</div>
     <h1>OBITO UCHIHA</h1>
     <p class="sub">CONTROL CENTER</p>
+    <p class="time"><span class="status-dot"></span> ONLINE</p>
   </div>
 
-  <div class="line"></div>
+  <div class="main-divider">◈ SYSTEM ◈</div>
 
-  <div class="section-title">⚡ Quick Access</div>
+  <div class="section">MAIN</div>
 
-  <a href="https://mohitmahawar74758-png.github.io/Portfolio/" class="card">
-    <div class="card-inner">
-      <div class="card-icon icon-blue">🌐</div>
-      <div class="card-text">
-        <div class="card-title">My Portfolio</div>
-        <div class="card-desc">Public profile — share with anyone</div>
-      </div>
-      <div class="arrow">→</div>
+  <a href="https://obito-uchiha-07.github.io/Portfolio/" class="link">
+    <div class="link-icon i-blue">🌐</div>
+    <div class="link-text">
+      <div class="link-title">My Portfolio</div>
+      <div class="link-desc">Public profile — share with anyone</div>
     </div>
+    <div class="link-arrow">→</div>
   </a>
 
-  <a href="https://mohitmahawar74758-png.github.io/Portfolio/admin.html" class="card">
-    <div class="card-inner">
-      <div class="card-icon icon-red">🔐</div>
-      <div class="card-text">
-        <div class="card-title">Admin Panel</div>
-        <div class="card-desc">Approve or remove device access</div>
-      </div>
-      <div class="arrow">→</div>
+  <div class="divider"><span>/__×_×_</span></div>
+
+  <a href="https://obito-uchiha-07.github.io/Portfolio/admin.html" class="link">
+    <div class="link-icon i-red">🔐</div>
+    <div class="link-text">
+      <div class="link-title">Admin Panel</div>
+      <div class="link-desc">Approve or remove device access</div>
     </div>
+    <div class="link-arrow">→</div>
   </a>
 
-  <div class="section-title" style="margin-top:24px;">📱 Apps</div>
+  <div class="divider"><span>/__×_×_</span></div>
 
-  <a href="https://freewebtoapk.com" class="card" target="_blank">
-    <div class="card-inner">
-      <div class="card-icon icon-orange">📦</div>
-      <div class="card-text">
-        <div class="card-title">Build New APK</div>
-        <div class="card-desc">Convert portfolio to Android app</div>
-      </div>
-      <div class="arrow">→</div>
+  <a href="https://obito-uchiha-07.github.io/Portfolio/home.html" class="link">
+    <div class="link-icon i-purple">🏠</div>
+    <div class="link-text">
+      <div class="link-title">Dashboard</div>
+      <div class="link-desc">This control center — bookmark it</div>
     </div>
+    <div class="link-arrow">→</div>
   </a>
 
-  <div class="section-title" style="margin-top:24px;">📂 Files</div>
+  <div class="section" style="margin-top:28px;">APPS</div>
 
-  <a href="https://github.com/mohitmahawar74758-png/Portfolio" class="card" target="_blank">
-    <div class="card-inner">
-      <div class="card-icon icon-purple">💻</div>
-      <div class="card-text">
-        <div class="card-title">GitHub Repository</div>
-        <div class="card-desc">All files — index, admin, whitelist</div>
-      </div>
-      <div class="arrow">→</div>
+  <a href="https://freewebtoapk.com" class="link" target="_blank">
+    <div class="link-icon i-orange">📦</div>
+    <div class="link-text">
+      <div class="link-title">Build New APK</div>
+      <div class="link-desc">Convert portfolio to Android app</div>
     </div>
+    <div class="link-arrow">→</div>
   </a>
 
-  <a href="https://github.com/mohitmahawar74758-png/Portfolio/edit/main/whitelist.json" class="card" target="_blank">
-    <div class="card-inner">
-      <div class="card-icon icon-green">📝</div>
-      <div class="card-text">
-        <div class="card-title">Edit Whitelist</div>
-        <div class="card-desc">Manual approval — direct JSON edit</div>
-      </div>
-      <div class="arrow">→</div>
+  <div class="divider"><span>/__×_×_</span></div>
+
+  <a href="https://pwabuilder.com" class="link" target="_blank">
+    <div class="link-icon i-cyan">⚙️</div>
+    <div class="link-text">
+      <div class="link-title">PWA Builder</div>
+      <div class="link-desc">Alternative APK builder — Microsoft</div>
     </div>
+    <div class="link-arrow">→</div>
   </a>
 
-  <div class="footer">OBITO UCHIHA © 2026</div>
+  <div class="section" style="margin-top:28px;">FILES</div>
+
+  <a href="https://github.com/obito-uchiha-07/Portfolio" class="link" target="_blank">
+    <div class="link-icon i-purple">💻</div>
+    <div class="link-text">
+      <div class="link-title">GitHub Repository</div>
+      <div class="link-desc">All files — index, admin, whitelist</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <div class="divider"><span>/__×_×_</span></div>
+
+  <a href="https://github.com/obito-uchiha-07/Portfolio/edit/main/whitelist.json" class="link" target="_blank">
+    <div class="link-icon i-green">📝</div>
+    <div class="link-text">
+      <div class="link-title">Edit Whitelist</div>
+      <div class="link-desc">Manual JSON edit — direct access</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <div class="divider"><span>/__×_×_</span></div>
+
+  <a href="https://github.com/settings/tokens" class="link" target="_blank">
+    <div class="link-icon i-orange">🔑</div>
+    <div class="link-text">
+      <div class="link-title">GitHub Tokens</div>
+      <div class="link-desc">Manage personal access tokens</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <div class="footer">
+    OBITO UCHIHA © 2026 <span class="heart">❤</span> FROM TERMUX
+  </div>
 
 </div>
 
