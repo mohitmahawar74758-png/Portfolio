@@ -43,9 +43,10 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
 .btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
 .btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 
-section { padding: 70px 0; }
-.section-title { font-size: 30px; font-weight: 800; margin-bottom: 36px; display: flex; align-items: center; gap: 12px; }
-.section-title::before { content: ''; width: 4px; height: 30px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
+section { padding: 60px 0; min-height: 100px; }
+.section-title { font-size: 28px; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; }
+.section-title::before { content: ''; width: 4px; height: 28px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
+.empty-text { color: #444; font-size: 13px; font-style: italic; padding: 20px 0; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
 .skill-card { padding: 20px; background: #141414; border: 1px solid #222; border-radius: 12px; text-align: center; }
@@ -70,7 +71,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 @media (max-width: 600px) {
   .hero-text h1 { font-size: 30px; letter-spacing: 2px; }
   .avatar { width: 150px; height: 150px; }
-  .section-title { font-size: 24px; }
+  .section-title { font-size: 22px; }
 }
 </style>
 </head>
@@ -112,18 +113,11 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
     </div>
   </div>
 
-  <section>
+  <section id="skills">
     <div class="container">
       <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card"><div class="icon">🎯</div><div class="name">Aim Master</div></div>
-        <div class="skill-card"><div class="icon">🃏</div><div class="name">Jackaroo</div></div>
-        <div class="skill-card"><div class="icon">⚡</div><div class="name">Speed</div></div>
-        <div class="skill-card"><div class="icon">🧠</div><div class="name">Strategy</div></div>
-        <div class="skill-card"><div class="icon">🎲</div><div class="name">Luck</div></div>
-        <div class="skill-card"><div class="icon">🏆</div><div class="name">Ranked</div></div>
-        <div class="skill-card"><div class="icon">💬</div><div class="name">Team Work</div></div>
-        <div class="skill-card"><div class="icon">🔥</div><div class="name">Win Streak</div></div>
+      <div class="skills-grid" id="skillsGrid">
+        <p class="empty-text">— Abhi kuch nahi. Content add karo. —</p>
       </div>
     </div>
   </section>
@@ -131,11 +125,8 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
   <section id="projects">
     <div class="container">
       <h2 class="section-title">Achievements</h2>
-      <div class="projects-grid">
-        <div class="project-card"><h3>🏆 Tournament Winner</h3><p>Won multiple WePlay tournaments.</p><div class="tech"><span>Winner</span><span>Pro</span></div></div>
-        <div class="project-card"><h3>🎯 Top Ranked</h3><p>Consistently ranked among top players.</p><div class="tech"><span>Top 100</span><span>Ranked</span></div></div>
-        <div class="project-card"><h3>🎮 Jackaroo Master</h3><p>Mastered all card combinations.</p><div class="tech"><span>Jackaroo</span><span>Cards</span></div></div>
-        <div class="project-card"><h3>🔥 100+ Win Streak</h3><p>Massive win streak against opponents.</p><div class="tech"><span>Streak</span><span>Legend</span></div></div>
+      <div class="projects-grid" id="projectsGrid">
+        <p class="empty-text">— Abhi kuch nahi. Content add karo. —</p>
       </div>
     </div>
   </section>
@@ -143,9 +134,8 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
   <section id="contact">
     <div class="container">
       <h2 class="section-title">Connect</h2>
-      <div class="contact-links">
-        <a href="#" class="contact-link"><span class="ci">🎮</span><div><div class="ct">WePlay</div><div class="cs">UID: 384969427</div></div></a>
-        <a href="https://github.com/mohitmahawar74758-png" class="contact-link"><span class="ci">💻</span><div><div class="ct">GitHub</div><div class="cs">@mohitmahawar74758-png</div></div></a>
+      <div class="contact-links" id="contactLinks">
+        <p class="empty-text">— Abhi kuch nahi. Content add karo. —</p>
       </div>
     </div>
   </section>
@@ -154,7 +144,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 </div>
 
 <script>
-const GITHUB_API = 'https://api.github.com/repos/mohitmahawar74758-png/Portfolio/contents/whitelist.json';
+const GITHUB_API = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
 
 function getDeviceId() {
   let id = localStorage.getItem('obito_device_id');
@@ -212,7 +202,7 @@ function loadAvatar() {
     const img = new Image();
     img.onload = () => { box.innerHTML = ''; box.appendChild(img); };
     img.onerror = () => { i++; next(); };
-    img.src = names[i];
+    img.src = names[i] + '?t=' + Date.now();
   }
   next();
 }
