@@ -51,7 +51,6 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
   pointer-events: none;
   z-index: 0;
 }
-/* IMPORTANT: ca-fullscreen, popup, lock ko exclude kiya */
 #mainApp > *:not(.ca-fullscreen):not(.popup-overlay) { position: relative; z-index: 1; }
 
 /* ========== TOP BAR ========== */
@@ -111,7 +110,7 @@ footer { padding: 30px 0; text-align: center; color: #444; font-size: 12px; bord
 .popup-actions button { padding: 11px; background: rgba(0,255,65,0.05); border: 1px solid #00ff41; border-radius: 6px; color: #00ff41; font-family: monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; }
 .popup-actions button:active { background: rgba(0,255,65,0.25); }
 
-/* ========== CRAZY ALPACA FULLSCREEN (FIXED!) ========== */
+/* ========== CRAZY ALPACA FULLSCREEN ========== */
 .ca-fullscreen { 
   position: fixed !important; 
   inset: 0 !important; 
@@ -551,9 +550,17 @@ function caParseDump() {
   if (ridMatch) { caParsed.rid = parseInt(ridMatch[1]); caLog(`✅ RID: ${caParsed.rid}`, 'ok'); }
   else { caLog('❌ RID nahi mila', 'err'); return; }
 
+  // ============================================
+  // WS URL — FORCE wss:// (Mixed content fix)
+  // ============================================
   const wsMatch = raw.match(/(wss?:\/\/[^\s"']+)/);
-  if (wsMatch) { caWS_URL = wsMatch[1]; caLog(`✅ WS: ${caWS_URL}`, 'ok'); }
-  else { caWS_URL = 'ws://35.154.196.40:14501/ws'; caLog(`⚠️ Default WS: ${caWS_URL}`, 'warn'); }
+  if (wsMatch) { 
+    caWS_URL = wsMatch[1].replace(/^ws:\/\//, 'wss://');
+    caLog(`✅ WS: ${caWS_URL}`, 'ok'); 
+  } else { 
+    caWS_URL = 'wss://35.154.196.40:14501/ws'; 
+    caLog(`⚠️ Default WSS: ${caWS_URL}`, 'warn'); 
+  }
 
   const detectedUids = new Set();
   const gamersMatch = raw.match(/"gamers"\s*:\s*\[([\s\S]*?)\]\s*,\s*"mode"/);
@@ -667,7 +674,7 @@ function caConnect() {
       }
     } catch (err) {}
   };
-  caWs.onerror = () => caLog(`❌ WS Error`, 'err');
+  caWs.onerror = () => caLog(`❌ WS Error (server wss support nahi karta ho sakta)`, 'err');
   caWs.onclose = () => { caLog('🔒 Closed', 'warn'); caSetStatus(false); };
 }
 
