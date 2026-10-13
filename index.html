@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</title>
+<title>AKATSUKI MODE</title>
 <meta name="theme-color" content="#667eea">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -14,37 +14,37 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
   position: fixed; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 30px; text-align: center; z-index: 9999;
-  background: radial-gradient(ellipse at top, #1a1a2e 0%, #0a0a0a 60%);
+  background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%);
 }
-.lock h1 { font-size: 28px; margin-bottom: 10px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.lock h1 { font-size: 30px; margin-bottom: 10px; background: linear-gradient(135deg, #dc2626, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 3px; }
 .lock .sub { color: #666; font-size: 13px; letter-spacing: 3px; margin-bottom: 30px; }
-.lock .did-box { background: #141414; border: 2px solid #667eea; border-radius: 12px; padding: 20px 24px; margin: 20px 0; max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3); }
+.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 20px 0; max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3); }
 .lock .did-label { font-size: 11px; color: #666; letter-spacing: 3px; margin-bottom: 8px; }
-.lock .did-value { font-size: 16px; font-family: monospace; color: #a5b4fc; word-break: break-all; letter-spacing: 1px; }
-.lock button { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 20px; }
+.lock .did-value { font-size: 16px; font-family: monospace; color: #fca5a5; word-break: break-all; letter-spacing: 1px; }
+.lock button { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 20px; }
 .lock .status { margin-top: 24px; font-size: 13px; color: #fbbf24; min-height: 24px; max-width: 400px; }
 .lock .status.err { color: #f87171; }
 .lock .status.ok { color: #4ade80; }
 .lock .icon { font-size: 60px; margin-bottom: 20px; }
 
 .hidden { display: none !important; }
-.hero { min-height: 100vh; display: flex; align-items: center; padding: 40px 0; background: radial-gradient(ellipse at top, #1a1a2e 0%, #0a0a0a 60%); }
+.hero { min-height: 100vh; display: flex; align-items: center; padding: 40px 0; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
 .hero-inner { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
-.avatar { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4); border: 4px solid #667eea; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: white; }
+.avatar { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 800; color: white; }
 .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.hero-text h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #999); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; }
+.hero-text h1 { font-size: 42px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 2px; }
 .hero-text .tagline { font-size: 18px; color: #888; margin-bottom: 24px; }
-.hero-text .uid-box { display: inline-block; padding: 8px 16px; background: rgba(102, 126, 234, 0.15); border: 1px solid rgba(102, 126, 234, 0.4); border-radius: 100px; font-size: 14px; color: #a5b4fc; font-family: monospace; margin-bottom: 24px; }
+.hero-text .uid-box { display: inline-block; padding: 8px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
 .hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-.badge { padding: 6px 14px; background: rgba(102, 126, 234, 0.15); border: 1px solid rgba(102, 126, 234, 0.4); border-radius: 100px; font-size: 13px; color: #a5b4fc; }
+.badge { padding: 6px 14px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
 .cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn { padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; }
-.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+.btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
 .btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 
 section { padding: 80px 0; }
 .section-title { font-size: 32px; font-weight: 800; margin-bottom: 40px; display: flex; align-items: center; gap: 12px; }
-.section-title::before { content: ''; width: 4px; height: 32px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 2px; }
+.section-title::before { content: ''; width: 4px; height: 32px; background: linear-gradient(135deg, #dc2626, #7c3aed); border-radius: 2px; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
 .skill-card { padding: 20px; background: #141414; border: 1px solid #222; border-radius: 12px; text-align: center; }
@@ -56,7 +56,7 @@ section { padding: 80px 0; }
 .project-card h3 { font-size: 20px; margin-bottom: 8px; color: #fff; }
 .project-card p { color: #888; font-size: 14px; margin-bottom: 16px; }
 .project-card .tech { display: flex; gap: 6px; flex-wrap: wrap; }
-.project-card .tech span { font-size: 11px; padding: 4px 10px; background: rgba(102, 126, 234, 0.1); border-radius: 100px; color: #a5b4fc; }
+.project-card .tech span { font-size: 11px; padding: 4px 10px; background: rgba(220, 38, 38, 0.1); border-radius: 100px; color: #fca5a5; }
 
 .contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
 .contact-link { padding: 16px 24px; background: #141414; border: 1px solid #222; border-radius: 12px; text-decoration: none; color: #e5e5e5; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 200px; }
@@ -67,7 +67,7 @@ section { padding: 80px 0; }
 footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
 
 @media (max-width: 600px) {
-  .hero-text h1 { font-size: 28px; }
+  .hero-text h1 { font-size: 26px; }
   .hero-inner { gap: 24px; justify-content: center; text-align: center; }
   .cta { justify-content: center; }
   .section-title { font-size: 24px; }
@@ -78,7 +78,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
 <div class="lock" id="lockScreen">
   <div class="icon">🔒</div>
-  <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
+  <h1>AKATSUKI MODE</h1>
   <div class="sub">ACCESS REQUIRED</div>
   <div class="did-box">
     <div class="did-label">YOUR DEVICE ID</div>
@@ -95,7 +95,7 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
       <div class="hero-inner">
         <div class="avatar" id="avatarBox">𝕺</div>
         <div class="hero-text">
-          <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
+          <h1>AKATSUKI MODE</h1>
           <p class="tagline">Pro Gamer • WePlay Legend • Content Creator</p>
           <div class="uid-box">UID: 384969427</div>
           <div class="badges">
@@ -150,19 +150,20 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
     </div>
   </section>
 
-  <footer>© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</footer>
+  <footer>© 2026 AKATSUKI MODE</footer>
 </div>
 
 <script>
-const WHITELIST_URL = 'https://raw.githubusercontent.com/mohitmahawar74758-png/Portfolio/main/whitelist.json';
+// jsdelivr CDN — no cache, always fresh
+const WHITELIST_URL = 'https://cdn.jsdelivr.net/gh/mohitmahawar74758-png/Portfolio@main/whitelist.json';
 
 function getDeviceId() {
-  let id = localStorage.getItem('obito_device_id');
+  let id = localStorage.getItem('akatsuki_device_id');
   if (!id) {
     const rand = Math.random().toString(36).substr(2, 6).toUpperCase();
     const time = Date.now().toString(36).toUpperCase().slice(-4);
     id = 'OB-' + rand + '-' + time;
-    localStorage.setItem('obito_device_id', id);
+    localStorage.setItem('akatsuki_device_id', id);
   }
   return id;
 }
@@ -175,7 +176,7 @@ async function checkApproval() {
   status.textContent = '⏳ Checking...';
   status.className = 'status';
   try {
-    const res = await fetch(WHITELIST_URL + '?t=' + Date.now());
+    const res = await fetch(WHITELIST_URL + '?t=' + Date.now(), { cache: 'no-store' });
     const data = await res.json();
     const approved = data.approved || [];
     if (approved.includes(DEVICE_ID)) {
