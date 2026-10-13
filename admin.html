@@ -3,70 +3,333 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin Panel</title>
+<title>⚙️ Admin Panel</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; min-height: 100vh; padding: 20px; }
-.container { max-width: 500px; margin: 0 auto; }
-h1 { font-size: 24px; margin-bottom: 8px; color: #a5b4fc; }
-.sub { color: #666; font-size: 13px; margin-bottom: 30px; letter-spacing: 2px; }
-.card { background: #141414; border: 1px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-.card h2 { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
-input { width: 100%; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; padding: 12px 16px; color: #e5e5e5; font-size: 14px; font-family: monospace; margin-bottom: 12px; outline: none; }
-input:focus { border-color: #667eea; }
-button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 100%; }
-.btn-primary:active { transform: scale(0.98); }
-.btn-danger { background: #7f1d1d; color: #fca5a5; font-size: 12px; padding: 6px 12px; }
-.btn-approve { background: #14532d; color: #86efac; width: 100%; margin-bottom: 8px; }
-.btn-remove { background: #450a0a; color: #fca5a5; width: 100%; }
-.device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #0a0a0a; border-radius: 8px; margin-bottom: 8px; border: 1px solid #222; gap: 8px; }
-.device-id { font-family: monospace; font-size: 13px; color: #a5b4fc; word-break: break-all; flex: 1; }
-.status { padding: 12px; border-radius: 8px; font-size: 13px; margin-top: 12px; display: none; }
+body { 
+  font-family: -apple-system, 'Segoe UI', sans-serif; 
+  background: #000; 
+  color: #e5e5e5; 
+  min-height: 100vh; 
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* HACKING BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(102, 126, 234, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 126, 234, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* MATRIX CODE RAIN */
+.matrix {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.08;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #667eea;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.container { 
+  max-width: 500px; 
+  margin: 0 auto; 
+  position: relative;
+  z-index: 1;
+}
+
+h1 { 
+  font-size: 24px; 
+  margin-bottom: 8px; 
+  color: #a5b4fc; 
+  text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+.sub { 
+  color: #666; 
+  font-size: 13px; 
+  margin-bottom: 30px; 
+  letter-spacing: 2px; 
+}
+
+.card { 
+  background: rgba(20, 20, 20, 0.95); 
+  border: 1px solid #222; 
+  border-radius: 12px; 
+  padding: 20px; 
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #667eea, transparent);
+  opacity: 0.5;
+}
+
+.card h2 { 
+  font-size: 14px; 
+  color: #888; 
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  margin-bottom: 16px; 
+}
+
+/* INPUT WRAPPER WITH SHOW/HIDE */
+.input-wrap {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.input-wrap input {
+  width: 100%;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px 50px 12px 16px;
+  color: #e5e5e5;
+  font-size: 14px;
+  font-family: monospace;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-wrap input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #667eea;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  width: auto;
+}
+
+.toggle-btn:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+button { 
+  padding: 12px 20px; 
+  border: none; 
+  border-radius: 8px; 
+  font-size: 14px; 
+  font-weight: 600; 
+  cursor: pointer; 
+  transition: all 0.2s; 
+  font-family: inherit;
+}
+
+.btn-primary { 
+  background: linear-gradient(135deg, #667eea, #764ba2); 
+  color: white; 
+  width: 100%;
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active { 
+  transform: scale(0.98); 
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.6);
+}
+
+.btn-danger { 
+  background: #7f1d1d; 
+  color: #fca5a5; 
+  font-size: 12px; 
+  padding: 6px 12px;
+  width: auto;
+}
+
+.btn-approve { 
+  background: linear-gradient(135deg, #14532d, #166534); 
+  color: #86efac; 
+  width: 100%; 
+  margin-bottom: 8px;
+  box-shadow: 0 5px 20px rgba(20, 83, 45, 0.4);
+}
+
+.btn-remove { 
+  background: linear-gradient(135deg, #450a0a, #7f1d1d); 
+  color: #fca5a5; 
+  width: 100%;
+  box-shadow: 0 5px 20px rgba(127, 29, 29, 0.4);
+}
+
+.device-item { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 12px; 
+  background: #0a0a0a; 
+  border-radius: 8px; 
+  margin-bottom: 8px; 
+  border: 1px solid #222; 
+  gap: 8px; 
+}
+
+.device-id { 
+  font-family: monospace; 
+  font-size: 13px; 
+  color: #a5b4fc; 
+  word-break: break-all; 
+  flex: 1; 
+}
+
+.status { 
+  padding: 12px; 
+  border-radius: 8px; 
+  font-size: 13px; 
+  margin-top: 12px; 
+  display: none; 
+}
+
 .status.show { display: block; }
-.status.ok { background: #14532d; color: #86efac; }
-.status.err { background: #450a0a; color: #fca5a5; }
+.status.ok { 
+  background: #14532d; 
+  color: #86efac; 
+  border: 1px solid #166534;
+}
+.status.err { 
+  background: #450a0a; 
+  color: #fca5a5; 
+  border: 1px solid #7f1d1d;
+}
+
 .hidden { display: none !important; }
-.lock-icon { font-size: 48px; text-align: center; margin-bottom: 20px; }
+
+.lock-icon { 
+  font-size: 64px; 
+  text-align: center; 
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.6));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* HEADER GLOW LINE */
+.header-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
+  margin-bottom: 20px;
+  animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.title-glitch {
+  font-family: monospace;
+  letter-spacing: 4px;
+}
 </style>
 </head>
 <body>
+
+<!-- MATRIX BACKGROUND -->
+<div class="matrix" id="matrix"></div>
 
 <div class="container">
 
 <div id="gate">
 <div class="lock-icon">🔐</div>
-<h1 style="text-align:center;">Admin Panel</h1>
-<p class="sub" style="text-align:center;">ACCESS REQUIRED</p>
+<h1 class="title-glitch" style="text-align:center;">ADMIN PANEL</h1>
+<p class="sub" style="text-align:center;">&gt; ACCESS REQUIRED &lt;</p>
+<div class="header-line"></div>
+
 <div class="card">
+<h2>🔑 Enter Passcode</h2>
+<div class="input-wrap">
 <input type="password" id="passInput" placeholder="Enter admin passcode" />
-<button class="btn-primary" onclick="unlock()">🔓 Unlock</button>
+<button class="toggle-btn" onclick="togglePass('passInput', this)">👁️</button>
+</div>
+<button class="btn-primary" onclick="unlock()">🔓 UNLOCK</button>
 <div class="status err" id="gateStatus"></div>
 </div>
 </div>
 
 <div id="admin" class="hidden">
-<h1>⚙️ Admin Panel</h1>
+<h1 class="title-glitch">⚙️ ADMIN PANEL</h1>
 <p class="sub">OBITO UCHIHA — CONTROL</p>
+<div class="header-line"></div>
 
 <div class="card" id="tokenCard">
 <h2>🔑 GitHub Token</h2>
+<div class="input-wrap">
 <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx" />
-<button class="btn-primary" onclick="saveToken()">Save Token</button>
+<button class="toggle-btn" onclick="togglePass('tokenInput', this)">👁️</button>
+</div>
+<button class="btn-primary" onclick="saveToken()">💾 Save Token</button>
 <div class="status" id="tokenStatus"></div>
 </div>
 
-<div class="card" id="approveCard">
-<h2>✅ Approve / Remove</h2>
+<div class="card hidden" id="approveCard">
+<h2>✅ Approve / Remove Device</h2>
+<div class="input-wrap">
 <input type="text" id="deviceInput" placeholder="OB-XXXXXX-XXXX" />
+</div>
 <button class="btn-approve" onclick="approveDevice()">✅ APPROVE</button>
 <button class="btn-remove" onclick="removeDevice()">❌ REMOVE</button>
 <div class="status" id="actionStatus"></div>
 </div>
 
-<div class="card">
+<div class="card hidden" id="listCard">
 <h2>📋 Approved Devices</h2>
-<button class="btn-primary" style="margin-bottom:16px;" onclick="loadList()">🔄 Refresh</button>
+<button class="btn-primary" style="margin-bottom:16px;" onclick="loadList()">🔄 Refresh List</button>
 <div id="deviceList">Loading...</div>
 </div>
 </div>
@@ -74,12 +337,47 @@ button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; 
 </div>
 
 <script>
+// ============ MATRIX CODE RAIN ============
+(function matrixRain() {
+  const chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>{}[]()=+-*/';
+  const matrix = document.getElementById('matrix');
+  let text = '';
+  for (let i = 0; i < 500; i++) {
+    text += chars[Math.floor(Math.random() * chars.length)];
+    if (i % 40 === 39) text += '\n';
+  }
+  matrix.textContent = text;
+  
+  setInterval(() => {
+    let newText = '';
+    for (let i = 0; i < 500; i++) {
+      newText += chars[Math.floor(Math.random() * chars.length)];
+      if (i % 40 === 39) newText += '\n';
+    }
+    matrix.textContent = newText;
+  }, 2000);
+})();
+
+// ============ SHOW/HIDE PASSWORD ============
+function togglePass(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    btn.textContent = '👁️';
+  }
+}
+
+// ============ CONFIG ============
 const OWNER = 'mohitmahawar74758-png';
 const REPO = 'Portfolio';
 const FILE = 'whitelist.json';
 const BRANCH = 'main';
-const PASSCODE = 'obito418061';
+const PASSCODE = 'OBITO418061';
 
+// ============ UNLOCK ============
 function unlock() {
   const pass = document.getElementById('passInput').value;
   const status = document.getElementById('gateStatus');
@@ -89,8 +387,9 @@ function unlock() {
     document.getElementById('admin').classList.remove('hidden');
     checkToken();
   } else {
-    status.textContent = '❌ Wrong passcode';
+    status.textContent = '❌ Wrong passcode! Access denied.';
     status.classList.add('show');
+    setTimeout(() => status.classList.remove('show'), 3000);
   }
 }
 
@@ -100,39 +399,44 @@ if (sessionStorage.getItem('unlocked') === 'yes') {
   checkToken();
 }
 
+// ============ TOKEN ============
 function checkToken() {
   const token = localStorage.getItem('gh_token');
   if (token) {
     document.getElementById('tokenCard').classList.add('hidden');
+    document.getElementById('approveCard').classList.remove('hidden');
+    document.getElementById('listCard').classList.remove('hidden');
     loadList();
   } else {
-    document.getElementById('approveCard').classList.add('hidden');
+    document.getElementById('tokenCard').classList.remove('hidden');
   }
 }
 
 function saveToken() {
   const token = document.getElementById('tokenInput').value.trim();
   if (!token || !token.startsWith('ghp_')) {
-    showStatus('tokenStatus', '❌ Invalid token', 'err');
+    showStatus('tokenStatus', '❌ Invalid token! ghp_ se start hona chahiye', 'err');
     return;
   }
   localStorage.setItem('gh_token', token);
-  showStatus('tokenStatus', '✅ Token saved!', 'ok');
+  showStatus('tokenStatus', '✅ Token saved! Panel ready.', 'ok');
   setTimeout(() => {
     document.getElementById('tokenCard').classList.add('hidden');
     document.getElementById('approveCard').classList.remove('hidden');
+    document.getElementById('listCard').classList.remove('hidden');
     loadList();
   }, 800);
 }
 
+// ============ GITHUB API ============
 async function getFile() {
   const token = localStorage.getItem('gh_token');
   const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + FILE + '?ref=' + BRANCH + '&t=' + Date.now(), {
     headers: { 'Authorization': 'token ' + token }
   });
-  if (!res.ok) throw new Error('Fetch failed');
+  if (!res.ok) throw new Error('Fetch failed — token check karo');
   const data = await res.json();
-  const content = JSON.parse(atob(data.content));
+  const content = JSON.parse(atob(data.content.replace(/\n/g, '')));
   return { content, sha: data.sha };
 }
 
@@ -155,22 +459,23 @@ async function updateFile(newContent, sha) {
   return await res.json();
 }
 
+// ============ APPROVE / REMOVE ============
 async function approveDevice() {
   const deviceId = document.getElementById('deviceInput').value.trim();
   if (!deviceId) { showStatus('actionStatus', '❌ Device ID daalo', 'err'); return; }
-  showStatus('actionStatus', '⏳ Approving...', 'ok');
+  showStatus('actionStatus', '⏳ Approving ' + deviceId + '...', 'ok');
   try {
     const { content, sha } = await getFile();
     if (!content.approved) content.approved = [];
     if (content.approved.includes(deviceId)) {
-      showStatus('actionStatus', '⚠️ Already approved', 'err');
+      showStatus('actionStatus', '⚠️ Already approved!', 'err');
       return;
     }
     content.approved.push(deviceId);
     await updateFile(content, sha);
     showStatus('actionStatus', '✅ Approved: ' + deviceId, 'ok');
     document.getElementById('deviceInput').value = '';
-    setTimeout(loadList, 1000);
+    setTimeout(loadList, 1500);
   } catch (e) {
     showStatus('actionStatus', '❌ Error: ' + e.message, 'err');
   }
@@ -179,23 +484,24 @@ async function approveDevice() {
 async function removeDevice() {
   const deviceId = document.getElementById('deviceInput').value.trim();
   if (!deviceId) { showStatus('actionStatus', '❌ Device ID daalo', 'err'); return; }
-  showStatus('actionStatus', '⏳ Removing...', 'ok');
+  showStatus('actionStatus', '⏳ Removing ' + deviceId + '...', 'ok');
   try {
     const { content, sha } = await getFile();
     if (!content.approved || !content.approved.includes(deviceId)) {
-      showStatus('actionStatus', '⚠️ ID not in list', 'err');
+      showStatus('actionStatus', '⚠️ ID not in approved list', 'err');
       return;
     }
     content.approved = content.approved.filter(id => id !== deviceId);
     await updateFile(content, sha);
     showStatus('actionStatus', '✅ Removed: ' + deviceId, 'ok');
     document.getElementById('deviceInput').value = '';
-    setTimeout(loadList, 1000);
+    setTimeout(loadList, 1500);
   } catch (e) {
     showStatus('actionStatus', '❌ Error: ' + e.message, 'err');
   }
 }
 
+// ============ LIST ============
 async function loadList() {
   const list = document.getElementById('deviceList');
   list.innerHTML = '⏳ Loading...';
@@ -203,7 +509,7 @@ async function loadList() {
     const { content } = await getFile();
     const approved = content.approved || [];
     if (approved.length === 0) {
-      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">No devices approved</div>';
+      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No devices approved</div>';
       return;
     }
     list.innerHTML = approved.map(id => 
@@ -215,7 +521,7 @@ async function loadList() {
 }
 
 async function quickRemove(deviceId) {
-  if (!confirm('Remove ' + deviceId + '?')) return;
+  if (!confirm('Remove access for ' + deviceId + '?')) return;
   try {
     const { content, sha } = await getFile();
     content.approved = (content.approved || []).filter(id => id !== deviceId);
@@ -230,7 +536,7 @@ function showStatus(id, msg, type) {
   const el = document.getElementById(id);
   el.textContent = msg;
   el.className = 'status show ' + type;
-  if (type === 'ok') setTimeout(() => { el.classList.remove('show'); }, 3000);
+  if (type === 'ok') setTimeout(() => { el.classList.remove('show'); }, 4000);
 }
 </script>
 
