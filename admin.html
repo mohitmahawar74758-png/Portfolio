@@ -6,291 +6,60 @@
 <title>⚙️ Admin Panel</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { 
-  font-family: -apple-system, 'Segoe UI', sans-serif; 
-  background: #000; 
-  color: #e5e5e5; 
-  min-height: 100vh; 
-  padding: 20px;
-  position: relative;
-  overflow-x: hidden;
-}
+body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #000; color: #e5e5e5; min-height: 100vh; padding: 20px; position: relative; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(102,126,234,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(102,126,234,0.05) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; z-index: 0; }
+body::after { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(102,126,234,0.15), transparent 50%), radial-gradient(circle at 80% 80%, rgba(118,75,162,0.15), transparent 50%); pointer-events: none; z-index: 0; }
+.container { max-width: 600px; margin: 0 auto; position: relative; z-index: 1; }
+h1 { font-size: 24px; margin-bottom: 8px; color: #a5b4fc; text-shadow: 0 0 20px rgba(102,126,234,0.5); }
+.sub { color: #666; font-size: 13px; margin-bottom: 30px; letter-spacing: 2px; }
+.card { background: rgba(20, 20, 20, 0.95); border: 1px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 16px; backdrop-filter: blur(10px); }
+.card h2 { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+.input-wrap { position: relative; margin-bottom: 12px; }
+.input-wrap input { width: 100%; background: #0a0a0a; border: 1px solid #333; border-radius: 8px; padding: 12px 50px 12px 16px; color: #e5e5e5; font-size: 14px; font-family: monospace; outline: none; }
+.input-wrap input:focus { border-color: #667eea; }
+.toggle-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: #667eea; font-size: 20px; cursor: pointer; padding: 4px 8px; }
+button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; width: 100%; }
+.btn-approve { background: linear-gradient(135deg, #14532d, #166534); color: #86efac; padding: 10px 16px; font-size: 13px; flex: 1; }
+.btn-reject { background: linear-gradient(135deg, #450a0a, #7f1d1d); color: #fca5a5; padding: 10px 16px; font-size: 13px; flex: 1; }
+.btn-danger { background: #7f1d1d; color: #fca5a5; font-size: 12px; padding: 8px 14px; }
+.btn-refresh { background: #1e3a8a; color: #93c5fd; padding: 10px 20px; width: 100%; margin-bottom: 16px; }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(102, 126, 234, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(102, 126, 234, 0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
-  pointer-events: none;
-  z-index: 0;
-}
+.request-item { background: #0a0a0a; border: 1px solid #222; border-radius: 10px; padding: 16px; margin-bottom: 12px; border-left: 3px solid #fbbf24; }
+.request-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+.request-id { font-family: monospace; font-size: 15px; color: #a5b4fc; font-weight: bold; word-break: break-all; }
+.request-time { font-size: 11px; color: #666; }
+.info-row { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid #151520; font-size: 12px; }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: #666; min-width: 80px; flex-shrink: 0; }
+.info-value { color: #c5c5d5; word-break: break-all; flex: 1; }
+.request-actions { display: flex; gap: 8px; margin-top: 14px; }
 
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.15), transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-  animation: pulseGlow 8s ease-in-out infinite alternate;
-}
+.device-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #0a0a0a; border-radius: 8px; margin-bottom: 8px; border: 1px solid #222; gap: 8px; }
+.device-id { font-family: monospace; font-size: 13px; color: #a5b4fc; word-break: break-all; flex: 1; }
 
-@keyframes pulseGlow {
-  0% { opacity: 0.5; }
-  100% { opacity: 1; }
-}
-
-.matrix {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.08;
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #667eea;
-  overflow: hidden;
-  white-space: pre;
-}
-
-.container { 
-  max-width: 500px; 
-  margin: 0 auto; 
-  position: relative;
-  z-index: 1;
-}
-
-h1 { 
-  font-size: 24px; 
-  margin-bottom: 8px; 
-  color: #a5b4fc; 
-  text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-}
-
-.sub { 
-  color: #666; 
-  font-size: 13px; 
-  margin-bottom: 30px; 
-  letter-spacing: 2px; 
-}
-
-.card { 
-  background: rgba(20, 20, 20, 0.95); 
-  border: 1px solid #222; 
-  border-radius: 12px; 
-  padding: 20px; 
-  margin-bottom: 16px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #667eea, transparent);
-  opacity: 0.5;
-}
-
-.card h2 { 
-  font-size: 14px; 
-  color: #888; 
-  text-transform: uppercase; 
-  letter-spacing: 2px; 
-  margin-bottom: 16px; 
-}
-
-.input-wrap {
-  position: relative;
-  margin-bottom: 12px;
-}
-
-.input-wrap input {
-  width: 100%;
-  background: #0a0a0a;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 12px 50px 12px 16px;
-  color: #e5e5e5;
-  font-size: 14px;
-  font-family: monospace;
-  outline: none;
-  transition: all 0.2s;
-}
-
-.input-wrap input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-}
-
-.toggle-btn {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: #667eea;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
-  width: auto;
-}
-
-.toggle-btn:hover {
-  background: rgba(102, 126, 234, 0.1);
-}
-
-button { 
-  padding: 12px 20px; 
-  border: none; 
-  border-radius: 8px; 
-  font-size: 14px; 
-  font-weight: 600; 
-  cursor: pointer; 
-  transition: all 0.2s; 
-  font-family: inherit;
-}
-
-.btn-primary { 
-  background: linear-gradient(135deg, #667eea, #764ba2); 
-  color: white; 
-  width: 100%;
-  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:active { 
-  transform: scale(0.98); 
-  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.6);
-}
-
-.btn-danger { 
-  background: #7f1d1d; 
-  color: #fca5a5; 
-  font-size: 12px; 
-  padding: 6px 12px;
-  width: auto;
-}
-
-.btn-approve { 
-  background: linear-gradient(135deg, #14532d, #166534); 
-  color: #86efac; 
-  width: 100%; 
-  margin-bottom: 8px;
-  box-shadow: 0 5px 20px rgba(20, 83, 45, 0.4);
-}
-
-.btn-remove { 
-  background: linear-gradient(135deg, #450a0a, #7f1d1d); 
-  color: #fca5a5; 
-  width: 100%;
-  box-shadow: 0 5px 20px rgba(127, 29, 29, 0.4);
-}
-
-.device-item { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 12px; 
-  background: #0a0a0a; 
-  border-radius: 8px; 
-  margin-bottom: 8px; 
-  border: 1px solid #222; 
-  gap: 8px; 
-}
-
-.device-id { 
-  font-family: monospace; 
-  font-size: 13px; 
-  color: #a5b4fc; 
-  word-break: break-all; 
-  flex: 1; 
-}
-
-.status { 
-  padding: 12px; 
-  border-radius: 8px; 
-  font-size: 13px; 
-  margin-top: 12px; 
-  display: none; 
-}
-
+.status { padding: 12px; border-radius: 8px; font-size: 13px; margin-top: 12px; display: none; }
 .status.show { display: block; }
-.status.ok { 
-  background: #14532d; 
-  color: #86efac; 
-  border: 1px solid #166534;
-}
-.status.err { 
-  background: #450a0a; 
-  color: #fca5a5; 
-  border: 1px solid #7f1d1d;
-}
-
+.status.ok { background: #14532d; color: #86efac; }
+.status.err { background: #450a0a; color: #fca5a5; }
 .hidden { display: none !important; }
-
-.lock-icon { 
-  font-size: 64px; 
-  text-align: center; 
-  margin-bottom: 20px;
-  filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.6));
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.header-line {
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #667eea, #764ba2, #667eea, transparent);
-  margin-bottom: 20px;
-  animation: scan 3s linear infinite;
-  background-size: 200% 100%;
-}
-
-@keyframes scan {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-.title-glitch {
-  font-family: monospace;
-  letter-spacing: 4px;
-}
+.lock-icon { font-size: 64px; text-align: center; margin-bottom: 20px; }
+.badge-count { display: inline-block; background: #dc2626; color: white; padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: bold; margin-left: 8px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 </style>
 </head>
 <body>
-
-<div class="matrix" id="matrix"></div>
 
 <div class="container">
 
 <div id="gate">
 <div class="lock-icon">🔐</div>
-<h1 class="title-glitch" style="text-align:center;">ADMIN PANEL</h1>
+<h1 style="text-align:center;">ADMIN PANEL</h1>
 <p class="sub" style="text-align:center;">&gt; ACCESS REQUIRED &lt;</p>
-<div class="header-line"></div>
-
 <div class="card">
 <h2>🔑 Enter Passcode</h2>
 <div class="input-wrap">
-<input type="password" id="passInput" placeholder="Enter admin passcode" />
+<input type="password" id="passInput" placeholder="Enter passcode" />
 <button class="toggle-btn" onclick="togglePass('passInput', this)">👁️</button>
 </div>
 <button class="btn-primary" onclick="unlock()">🔓 UNLOCK</button>
@@ -299,9 +68,8 @@ button {
 </div>
 
 <div id="admin" class="hidden">
-<h1 class="title-glitch">⚙️ ADMIN PANEL</h1>
+<h1>⚙️ ADMIN PANEL</h1>
 <p class="sub">OBITO UCHIHA — CONTROL</p>
-<div class="header-line"></div>
 
 <div class="card" id="tokenCard">
 <h2>🔑 GitHub Token</h2>
@@ -313,62 +81,34 @@ button {
 <div class="status" id="tokenStatus"></div>
 </div>
 
-<div class="card hidden" id="approveCard">
-<h2>✅ Approve / Remove Device</h2>
-<div class="input-wrap">
-<input type="text" id="deviceInput" placeholder="OB-XXXXXX-XXXX" />
-</div>
-<button class="btn-approve" onclick="approveDevice()">✅ APPROVE</button>
-<button class="btn-remove" onclick="removeDevice()">❌ REMOVE</button>
-<div class="status" id="actionStatus"></div>
+<div class="card hidden" id="requestsCard">
+<h2>🔔 Access Requests <span class="badge-count" id="requestCount">0</span></h2>
+<button class="btn-refresh" onclick="loadRequests()">🔄 Refresh Requests</button>
+<div id="requestsList">Loading...</div>
 </div>
 
 <div class="card hidden" id="listCard">
-<h2>📋 Approved Devices</h2>
-<button class="btn-primary" style="margin-bottom:16px;" onclick="loadList()">🔄 Refresh List</button>
+<h2>✅ Approved Devices</h2>
+<button class="btn-refresh" onclick="loadApproved()">🔄 Refresh Approved</button>
 <div id="deviceList">Loading...</div>
 </div>
-</div>
 
+</div>
 </div>
 
 <script>
-(function matrixRain() {
-  const chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>{}[]()=+-*/';
-  const matrix = document.getElementById('matrix');
-  let text = '';
-  for (let i = 0; i < 500; i++) {
-    text += chars[Math.floor(Math.random() * chars.length)];
-    if (i % 40 === 39) text += '\n';
-  }
-  matrix.textContent = text;
-  
-  setInterval(() => {
-    let newText = '';
-    for (let i = 0; i < 500; i++) {
-      newText += chars[Math.floor(Math.random() * chars.length)];
-      if (i % 40 === 39) newText += '\n';
-    }
-    matrix.textContent = newText;
-  }, 2000);
-})();
+const OWNER = 'obito-uchiha-07';
+const REPO = 'Portfolio';
+const PASSCODE = 'OBITO418061';
+const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
+
+let cachedToken = '';
 
 function togglePass(inputId, btn) {
   const input = document.getElementById(inputId);
-  if (input.type === 'password') {
-    input.type = 'text';
-    btn.textContent = '🙈';
-  } else {
-    input.type = 'password';
-    btn.textContent = '👁️';
-  }
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+  else { input.type = 'password'; btn.textContent = '👁️'; }
 }
-
-const OWNER = 'obito-uchiha-07';
-const REPO = 'Portfolio';
-const FILE = 'whitelist.json';
-const BRANCH = 'main';
-const PASSCODE = 'OBITO418061';
 
 function unlock() {
   const pass = document.getElementById('passInput').value;
@@ -379,7 +119,7 @@ function unlock() {
     document.getElementById('admin').classList.remove('hidden');
     checkToken();
   } else {
-    status.textContent = '❌ Wrong passcode! Access denied.';
+    status.textContent = '❌ Wrong passcode';
     status.classList.add('show');
     setTimeout(() => status.classList.remove('show'), 3000);
   }
@@ -394,10 +134,12 @@ if (sessionStorage.getItem('unlocked') === 'yes') {
 function checkToken() {
   const token = localStorage.getItem('gh_token');
   if (token) {
+    cachedToken = token;
     document.getElementById('tokenCard').classList.add('hidden');
-    document.getElementById('approveCard').classList.remove('hidden');
+    document.getElementById('requestsCard').classList.remove('hidden');
     document.getElementById('listCard').classList.remove('hidden');
-    loadList();
+    loadRequests();
+    loadApproved();
   } else {
     document.getElementById('tokenCard').classList.remove('hidden');
   }
@@ -406,40 +148,40 @@ function checkToken() {
 function saveToken() {
   const token = document.getElementById('tokenInput').value.trim();
   if (!token || !token.startsWith('ghp_')) {
-    showStatus('tokenStatus', '❌ Invalid token! ghp_ se start hona chahiye', 'err');
+    showStatus('tokenStatus', '❌ Invalid token!', 'err');
     return;
   }
   localStorage.setItem('gh_token', token);
-  showStatus('tokenStatus', '✅ Token saved! Panel ready.', 'ok');
+  cachedToken = token;
+  showStatus('tokenStatus', '✅ Token saved!', 'ok');
   setTimeout(() => {
     document.getElementById('tokenCard').classList.add('hidden');
-    document.getElementById('approveCard').classList.remove('hidden');
+    document.getElementById('requestsCard').classList.remove('hidden');
     document.getElementById('listCard').classList.remove('hidden');
-    loadList();
+    loadRequests();
+    loadApproved();
   }, 800);
 }
 
-async function getFile() {
-  const token = localStorage.getItem('gh_token');
-  const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + FILE + '?ref=' + BRANCH + '&t=' + Date.now(), {
-    headers: { 'Authorization': 'token ' + token }
+async function getJsonFile(filename) {
+  const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + filename + '?t=' + Date.now(), {
+    headers: { 'Authorization': 'token ' + cachedToken }
   });
-  if (!res.ok) throw new Error('Fetch failed — token check karo');
+  if (!res.ok) throw new Error('Fetch failed');
   const data = await res.json();
   const content = JSON.parse(atob(data.content.replace(/\n/g, '')));
   return { content, sha: data.sha };
 }
 
-async function updateFile(newContent, sha) {
-  const token = localStorage.getItem('gh_token');
-  const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + FILE, {
+async function updateJsonFile(filename, newContent, sha, msg) {
+  const res = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + filename, {
     method: 'PUT',
-    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+    headers: { 'Authorization': 'token ' + cachedToken, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      message: 'Update whitelist ' + new Date().toISOString(),
+      message: msg,
       content: btoa(JSON.stringify(newContent, null, 2)),
       sha: sha,
-      branch: BRANCH
+      branch: 'main'
     })
   });
   if (!res.ok) {
@@ -449,72 +191,109 @@ async function updateFile(newContent, sha) {
   return await res.json();
 }
 
-async function approveDevice() {
-  const deviceId = document.getElementById('deviceInput').value.trim();
-  if (!deviceId) { showStatus('actionStatus', '❌ Device ID daalo', 'err'); return; }
-  showStatus('actionStatus', '⏳ Approving ' + deviceId + '...', 'ok');
+async function loadRequests() {
+  const list = document.getElementById('requestsList');
+  list.innerHTML = '⏳ Loading from Firebase...';
   try {
-    const { content, sha } = await getFile();
-    if (!content.approved) content.approved = [];
-    if (content.approved.includes(deviceId)) {
-      showStatus('actionStatus', '⚠️ Already approved!', 'err');
+    const res = await fetch(FIREBASE_URL + '/requests.json?t=' + Date.now());
+    const data = await res.json();
+    
+    if (!data) {
+      document.getElementById('requestCount').textContent = '0';
+      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No pending requests</div>';
       return;
     }
-    content.approved.push(deviceId);
-    await updateFile(content, sha);
-    showStatus('actionStatus', '✅ Approved: ' + deviceId, 'ok');
-    document.getElementById('deviceInput').value = '';
-    setTimeout(loadList, 1500);
+    
+    const requests = Object.values(data).filter(r => r && r.status === 'pending');
+    document.getElementById('requestCount').textContent = requests.length;
+    
+    if (requests.length === 0) {
+      list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No pending requests</div>';
+      return;
+    }
+    
+    list.innerHTML = requests.map(r => `
+      <div class="request-item">
+        <div class="request-header">
+          <div class="request-id">${r.deviceId}</div>
+          <div class="request-time">${r.time || ''}</div>
+        </div>
+        <div class="info-row"><div class="info-label">📱 Platform:</div><div class="info-value">${r.platform || '-'}</div></div>
+        <div class="info-row"><div class="info-label">🔧 Device:</div><div class="info-value">${r.deviceInfo || '-'}</div></div>
+        <div class="info-row"><div class="info-label">🌐 IP:</div><div class="info-value">${r.ip || '-'}</div></div>
+        <div class="info-row"><div class="info-label">📐 Screen:</div><div class="info-value">${r.screen || '-'}</div></div>
+        <div class="info-row"><div class="info-label">🗣️ Language:</div><div class="info-value">${r.language || '-'}</div></div>
+        <div class="info-row"><div class="info-label">⏰ Timezone:</div><div class="info-value">${r.timezone || '-'}</div></div>
+        <div class="request-actions">
+          <button class="btn-approve" onclick="approveRequest('${r.deviceId}')">✅ APPROVE</button>
+          <button class="btn-reject" onclick="rejectRequest('${r.deviceId}')">❌ REJECT</button>
+        </div>
+      </div>
+    `).join('');
   } catch (e) {
-    showStatus('actionStatus', '❌ Error: ' + e.message, 'err');
+    list.innerHTML = '<div style="color:#fca5a5;">❌ Error: ' + e.message + '</div>';
   }
 }
 
-async function removeDevice() {
-  const deviceId = document.getElementById('deviceInput').value.trim();
-  if (!deviceId) { showStatus('actionStatus', '❌ Device ID daalo', 'err'); return; }
-  showStatus('actionStatus', '⏳ Removing ' + deviceId + '...', 'ok');
+async function approveRequest(deviceId) {
+  if (!confirm('Approve ' + deviceId + '?')) return;
   try {
-    const { content, sha } = await getFile();
-    if (!content.approved || !content.approved.includes(deviceId)) {
-      showStatus('actionStatus', '⚠️ ID not in approved list', 'err');
-      return;
+    const wl = await getJsonFile('whitelist.json');
+    if (!wl.content.approved) wl.content.approved = [];
+    if (!wl.content.approved.includes(deviceId)) {
+      wl.content.approved.push(deviceId);
+      await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Approve ' + deviceId);
     }
-    content.approved = content.approved.filter(id => id !== deviceId);
-    await updateFile(content, sha);
-    showStatus('actionStatus', '✅ Removed: ' + deviceId, 'ok');
-    document.getElementById('deviceInput').value = '';
-    setTimeout(loadList, 1500);
+    await deleteRequest(deviceId);
+    alert('✅ Approved: ' + deviceId);
+    loadRequests();
+    loadApproved();
   } catch (e) {
-    showStatus('actionStatus', '❌ Error: ' + e.message, 'err');
+    alert('Error: ' + e.message);
   }
 }
 
-async function loadList() {
+async function rejectRequest(deviceId) {
+  if (!confirm('Reject ' + deviceId + '?')) return;
+  try {
+    await deleteRequest(deviceId);
+    alert('❌ Rejected: ' + deviceId);
+    loadRequests();
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+async function deleteRequest(deviceId) {
+  const key = deviceId.replace(/[^A-Z0-9-]/g, '');
+  await fetch(FIREBASE_URL + '/requests/' + key + '.json', { method: 'DELETE' });
+}
+
+async function loadApproved() {
   const list = document.getElementById('deviceList');
   list.innerHTML = '⏳ Loading...';
   try {
-    const { content } = await getFile();
+    const { content } = await getJsonFile('whitelist.json');
     const approved = content.approved || [];
     if (approved.length === 0) {
       list.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">📭 No devices approved</div>';
       return;
     }
     list.innerHTML = approved.map(id => 
-      '<div class="device-item"><span class="device-id">' + id + '</span><button class="btn-danger" onclick="quickRemove(\'' + id + '\')">❌ Remove</button></div>'
+      '<div class="device-item"><span class="device-id">' + id + '</span><button class="btn-danger" onclick="removeApproved(\'' + id + '\')">❌ Remove</button></div>'
     ).join('');
   } catch (e) {
     list.innerHTML = '<div style="color:#fca5a5;">❌ Error: ' + e.message + '</div>';
   }
 }
 
-async function quickRemove(deviceId) {
-  if (!confirm('Remove access for ' + deviceId + '?')) return;
+async function removeApproved(deviceId) {
+  if (!confirm('Remove ' + deviceId + '?')) return;
   try {
-    const { content, sha } = await getFile();
-    content.approved = (content.approved || []).filter(id => id !== deviceId);
-    await updateFile(content, sha);
-    loadList();
+    const wl = await getJsonFile('whitelist.json');
+    wl.content.approved = (wl.content.approved || []).filter(id => id !== deviceId);
+    await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Remove ' + deviceId);
+    loadApproved();
   } catch (e) {
     alert('Error: ' + e.message);
   }
@@ -524,7 +303,7 @@ function showStatus(id, msg, type) {
   const el = document.getElementById(id);
   el.textContent = msg;
   el.className = 'status show ' + type;
-  if (type === 'ok') setTimeout(() => { el.classList.remove('show'); }, 4000);
+  if (type === 'ok') setTimeout(() => el.classList.remove('show'), 3000);
 }
 </script>
 
