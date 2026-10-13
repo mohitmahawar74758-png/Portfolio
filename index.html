@@ -13,35 +13,33 @@ body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; 
 .lock { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; z-index: 9999; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); overflow-y: auto; }
 .lock h1 { font-size: 30px; margin-bottom: 10px; background: linear-gradient(135deg, #dc2626, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 3px; }
 .lock .sub { color: #666; font-size: 13px; letter-spacing: 3px; margin-bottom: 20px; }
-.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 12px 0; max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3); position: relative; }
+.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 12px 0; max-width: 400px; width: 100%; position: relative; }
 .lock .did-label { font-size: 11px; color: #666; letter-spacing: 3px; margin-bottom: 8px; }
 .lock .did-value { font-size: 16px; font-family: monospace; color: #fca5a5; word-break: break-all; letter-spacing: 1px; padding-right: 40px; }
-.copy-btn { position: absolute; right: 12px; bottom: 20px; background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.4); color: #fca5a5; font-size: 18px; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-.copy-btn:active { background: rgba(220, 38, 38, 0.5); transform: scale(0.9); }
+.copy-btn { position: absolute; right: 12px; bottom: 20px; background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.4); color: #fca5a5; font-size: 18px; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .lock button.primary { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 16px; }
 .lock button.request { padding: 12px 30px; border-radius: 8px; border: 1px solid #444; background: transparent; color: #a5b4fc; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 1px; margin-top: 10px; }
-.lock button.request:active { background: rgba(102, 126, 234, 0.1); }
 .lock .status { margin-top: 16px; font-size: 13px; color: #fbbf24; min-height: 24px; max-width: 400px; }
 .lock .status.err { color: #f87171; }
 .lock .status.ok { color: #4ade80; }
 .lock .icon { font-size: 60px; margin-bottom: 20px; }
 
-.copy-toast { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #14532d, #166534); color: #86efac; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99999; }
+.copy-toast { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #14532d; color: #86efac; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99999; }
 .copy-toast.show { opacity: 1; }
 
 .hidden { display: none !important; }
 .hero { min-height: 100vh; display: flex; align-items: center; padding: 60px 0 40px; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); }
 .hero-inner { display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center; }
-.avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 72px; font-weight: 800; color: white; position: relative; }
+.avatar { width: 180px; height: 180px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4); border: 4px solid #dc2626; background: linear-gradient(135deg, #dc2626, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 72px; font-weight: 800; color: white; }
 .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
 .hero-text { max-width: 600px; }
 .hero-text h1 { font-size: 44px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #fff, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; word-break: break-word; letter-spacing: 3px; line-height: 1.2; }
 .hero-text .tagline { font-size: 17px; color: #888; margin-bottom: 24px; }
-.hero-text .uid-box { display: inline-block; padding: 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; letter-spacing: 1px; }
+.hero-text .uid-box { display: inline-block; padding: 8px 18px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 14px; color: #fca5a5; font-family: monospace; margin-bottom: 24px; }
 .hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
 .badge { padding: 7px 16px; background: rgba(220, 38, 38, 0.15); border: 1px solid rgba(220, 38, 38, 0.4); border-radius: 100px; font-size: 13px; color: #fca5a5; }
 .cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-.btn { padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; transition: all 0.2s; }
+.btn { padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-block; border: none; }
 .btn-primary { background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; }
 .btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 
@@ -53,7 +51,7 @@ section { padding: 60px 0; min-height: 100px; }
 footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
 
 @media (max-width: 600px) {
-  .hero-text h1 { font-size: 30px; letter-spacing: 2px; }
+  .hero-text h1 { font-size: 30px; }
   .avatar { width: 150px; height: 150px; }
   .section-title { font-size: 22px; }
 }
@@ -71,10 +69,10 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
   <div class="did-box">
     <div class="did-label">YOUR DEVICE ID</div>
     <div class="did-value" id="deviceIdBox">Loading...</div>
-    <button class="copy-btn" onclick="copyDeviceId()" title="Copy">📋</button>
+    <button class="copy-btn" onclick="copyDeviceId()">📋</button>
   </div>
   
-  <p style="font-size: 12px; color: #888; max-width: 400px; margin-top: 8px;">Request Access dabao — owner approve karega.</p>
+  <p style="font-size: 12px; color: #888; max-width: 400px;">ID copy karo owner ko bhejo. Ya REQUEST dabao — owner ko notification jayegi.</p>
   
   <button class="primary" onclick="checkApproval()">✅ CHECK APPROVAL</button>
   <button class="request" onclick="requestAccess()">📩 REQUEST ACCESS</button>
@@ -105,14 +103,14 @@ footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; bord
 
 <script>
 // ============================================
-// GITHUB CONFIG
+// WEB3FORMS — EMAIL NOTIFICATION (SAFE)
 // ============================================
-const GITHUB_OWNER = 'obito-uchiha-07';
-const GITHUB_REPO = 'Portfolio';
-const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // ⚠️ YAHAN TOKEN DAALO
-// ============================================
+const WEB3FORMS_KEY = 'b5377e7f-c7f6-4c57-849e-5dc3e58604b4';
 
-const WHITELIST_URL = 'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/whitelist.json';
+// ============================================
+// GITHUB WHITELIST CHECK
+// ============================================
+const WHITELIST_URL = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
 
 function getDeviceId() {
   let id = localStorage.getItem('obito_device_id');
@@ -128,6 +126,7 @@ function getDeviceId() {
 const DEVICE_ID = getDeviceId();
 document.getElementById('deviceIdBox').textContent = DEVICE_ID;
 
+// ============ COPY DEVICE ID ============
 function copyDeviceId() {
   const text = DEVICE_ID;
   if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -153,6 +152,7 @@ function showCopyToast() {
   setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
+// ============ CHECK APPROVAL ============
 async function checkApproval() {
   const status = document.getElementById('lockStatus');
   status.textContent = '⏳ Checking...';
@@ -184,15 +184,12 @@ async function checkApproval() {
   }
 }
 
-// ============================================
-// REQUEST ACCESS — Save to requests.json
-// ============================================
+// ============ REQUEST ACCESS (EMAIL) ============
 async function requestAccess() {
   const status = document.getElementById('lockStatus');
   status.textContent = '📩 Sending request...';
   status.className = 'status';
   
-  // Gather info (only what user voluntarily provides by clicking)
   let ip = 'unknown';
   try {
     const r = await fetch('https://api.ipify.org?format=json');
@@ -200,69 +197,33 @@ async function requestAccess() {
     ip = d.ip;
   } catch(e) {}
   
-  const requestInfo = {
-    deviceId: DEVICE_ID,
-    timestamp: Date.now(),
-    time: new Date().toLocaleString('en-IN'),
-    platform: navigator.platform || 'unknown',
-    deviceInfo: navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
-    browser: navigator.userAgent,
-    screen: window.screen.width + 'x' + window.screen.height,
-    language: navigator.language || 'unknown',
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
-    ip: ip,
-    touch: 'ontouchstart' in window ? 'Yes' : 'No'
+  const info = {
+    access_key: WEB3FORMS_KEY,
+    subject: '🎮 Access Request — ' + DEVICE_ID,
+    from_name: 'Obito Uchiha App',
+    'Device ID': DEVICE_ID,
+    'Platform': navigator.platform || 'unknown',
+    'Device Info': navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
+    'Browser': navigator.userAgent,
+    'Screen': window.screen.width + 'x' + window.screen.height,
+    'Language': navigator.language || 'unknown',
+    'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
+    'IP Address': ip,
+    'Time': new Date().toLocaleString('en-IN')
   };
   
   try {
-    // Get current requests.json
-    const getRes = await fetch('https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/requests.json', {
-      headers: { 'Authorization': 'token ' + GITHUB_TOKEN }
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(info)
     });
-    
-    let requestsData, sha;
-    if (getRes.ok) {
-      const fileData = await getRes.json();
-      requestsData = JSON.parse(atob(fileData.content.replace(/\n/g, '')));
-      sha = fileData.sha;
-    } else {
-      requestsData = { requests: [] };
-      sha = null;
-    }
-    
-    // Check if already requested
-    const existing = requestsData.requests.find(r => r.deviceId === DEVICE_ID);
-    if (existing) {
-      status.textContent = '✅ Request already sent! Owner approve karega.';
-      status.className = 'status ok';
-      return;
-    }
-    
-    // Add new request
-    requestsData.requests.push(requestInfo);
-    
-    // Save
-    const putBody = {
-      message: 'New access request from ' + DEVICE_ID,
-      content: btoa(JSON.stringify(requestsData, null, 2)),
-      branch: 'main'
-    };
-    if (sha) putBody.sha = sha;
-    
-    const putRes = await fetch('https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/requests.json', {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'token ' + GITHUB_TOKEN,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(putBody)
-    });
-    
-    if (putRes.ok) {
-      status.textContent = '✅ Request sent! Owner approve karega.';
+    const data = await res.json();
+    if (data.success) {
+      status.textContent = '✅ Request sent! Owner ko email chali gayi.';
       status.className = 'status ok';
     } else {
-      status.textContent = '❌ Failed to send. Try again.';
+      status.textContent = '❌ Failed. Try again.';
       status.className = 'status err';
     }
   } catch (e) {
