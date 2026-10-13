@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mohit Mahawar — Developer</title>
+<title>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#667eea">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -15,7 +17,6 @@ body {
 }
 .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
-/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -27,166 +28,99 @@ body {
 .avatar {
   width: 160px; height: 160px;
   border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+  border: 4px solid #667eea;
   background: linear-gradient(135deg, #667eea, #764ba2);
   display: flex; align-items: center; justify-content: center;
   font-size: 64px; font-weight: 800; color: white;
-  flex-shrink: 0;
-  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
 }
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-text h1 {
-  font-size: 48px;
-  font-weight: 800;
-  margin-bottom: 12px;
+  font-size: 42px; font-weight: 800; margin-bottom: 12px;
   background: linear-gradient(135deg, #fff, #999);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  word-break: break-word;
 }
-.hero-text .tagline {
-  font-size: 20px;
-  color: #888;
+.hero-text .tagline { font-size: 18px; color: #888; margin-bottom: 24px; }
+.hero-text .uid-box {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.4);
+  border-radius: 100px;
+  font-size: 14px;
+  color: #a5b4fc;
+  font-family: monospace;
   margin-bottom: 24px;
 }
 .hero-text .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
 .badge {
-  padding: 6px 14px;
-  background: rgba(102, 126, 234, 0.15);
+  padding: 6px 14px; background: rgba(102, 126, 234, 0.15);
   border: 1px solid rgba(102, 126, 234, 0.4);
-  border-radius: 100px;
-  font-size: 13px;
-  color: #a5b4fc;
+  border-radius: 100px; font-size: 13px; color: #a5b4fc;
 }
 .cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-  transition: all 0.2s;
-  display: inline-block;
-  cursor: pointer;
-  border: none;
+  padding: 12px 24px; border-radius: 8px; text-decoration: none;
+  font-weight: 600; font-size: 15px; transition: all 0.2s;
+  display: inline-block; cursor: pointer; border: none;
 }
-.btn-primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-}
+.btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
-.btn-outline {
-  background: transparent;
-  border: 2px solid #333;
-  color: #e5e5e5;
-}
+.btn-outline { background: transparent; border: 2px solid #333; color: #e5e5e5; }
 .btn-outline:hover { border-color: #667eea; color: #a5b4fc; }
 
-/* SECTION */
 section { padding: 80px 0; }
 .section-title {
-  font-size: 32px;
-  font-weight: 800;
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  font-size: 32px; font-weight: 800; margin-bottom: 40px;
+  display: flex; align-items: center; gap: 12px;
 }
 .section-title::before {
-  content: '';
-  width: 4px;
-  height: 32px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 2px;
+  content: ''; width: 4px; height: 32px;
+  background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 2px;
 }
 
-/* SKILLS */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
-}
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
 .skill-card {
-  padding: 20px;
-  background: #141414;
-  border: 1px solid #222;
-  border-radius: 12px;
-  text-align: center;
-  transition: all 0.2s;
+  padding: 20px; background: #141414; border: 1px solid #222;
+  border-radius: 12px; text-align: center; transition: all 0.2s;
 }
-.skill-card:hover {
-  border-color: #667eea;
-  transform: translateY(-4px);
-}
+.skill-card:hover { border-color: #667eea; transform: translateY(-4px); }
 .skill-card .icon { font-size: 32px; margin-bottom: 8px; }
 .skill-card .name { font-weight: 600; font-size: 14px; color: #ddd; }
 
-/* PROJECTS */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .project-card {
-  padding: 24px;
-  background: #141414;
-  border: 1px solid #222;
-  border-radius: 12px;
-  transition: all 0.2s;
+  padding: 24px; background: #141414; border: 1px solid #222;
+  border-radius: 12px; transition: all 0.2s;
 }
-.project-card:hover {
-  border-color: #667eea;
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-}
+.project-card:hover { border-color: #667eea; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 .project-card h3 { font-size: 20px; margin-bottom: 8px; color: #fff; }
 .project-card p { color: #888; font-size: 14px; margin-bottom: 16px; }
 .project-card .tech { display: flex; gap: 6px; flex-wrap: wrap; }
 .project-card .tech span {
-  font-size: 11px;
-  padding: 4px 10px;
-  background: rgba(102, 126, 234, 0.1);
-  border-radius: 100px;
-  color: #a5b4fc;
+  font-size: 11px; padding: 4px 10px;
+  background: rgba(102, 126, 234, 0.1); border-radius: 100px; color: #a5b4fc;
 }
 
-/* CONTACT */
-.contact-links {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
+.contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
 .contact-link {
-  padding: 16px 24px;
-  background: #141414;
-  border: 1px solid #222;
-  border-radius: 12px;
-  text-decoration: none;
-  color: #e5e5e5;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  transition: all 0.2s;
-  flex: 1;
-  min-width: 200px;
+  padding: 16px 24px; background: #141414; border: 1px solid #222;
+  border-radius: 12px; text-decoration: none; color: #e5e5e5;
+  display: flex; align-items: center; gap: 12px; transition: all 0.2s;
+  flex: 1; min-width: 200px;
 }
-.contact-link:hover {
-  border-color: #667eea;
-  background: #1a1a2e;
-}
+.contact-link:hover { border-color: #667eea; background: #1a1a2e; }
 .contact-link .ci { font-size: 24px; }
 .contact-link .ct { font-weight: 600; }
 .contact-link .cs { font-size: 13px; color: #888; }
 
-/* FOOTER */
-footer {
-  padding: 40px 0;
-  text-align: center;
-  color: #555;
-  font-size: 14px;
-  border-top: 1px solid #1a1a1a;
-}
+footer { padding: 40px 0; text-align: center; color: #555; font-size: 14px; border-top: 1px solid #1a1a1a; }
 
 @media (max-width: 600px) {
-  .hero-text h1 { font-size: 32px; }
+  .hero-text h1 { font-size: 28px; }
   .hero-inner { gap: 24px; justify-content: center; text-align: center; }
   .cta { justify-content: center; }
   .section-title { font-size: 24px; }
@@ -195,127 +129,110 @@ footer {
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <div class="container">
     <div class="hero-inner">
-      <div class="avatar">MM</div>
+      <div class="avatar" id="avatarBox">𝕺</div>
       <div class="hero-text">
-        <h1>Mohit Mahawar</h1>
-        <p class="tagline">Full Stack Developer • Builder • Problem Solver</p>
+        <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
+        <p class="tagline">Pro Gamer • WePlay Legend • Content Creator</p>
+        <div class="uid-box">UID: 384969427</div>
         <div class="badges">
-          <span class="badge">JavaScript</span>
-          <span class="badge">Node.js</span>
-          <span class="badge">HTML/CSS</span>
-          <span class="badge">WebSocket</span>
-          <span class="badge">Termux</span>
+          <span class="badge">🎮 Gamer</span>
+          <span class="badge">🏆 Pro Player</span>
+          <span class="badge">⚡ Legend</span>
         </div>
         <div class="cta">
           <a href="#contact" class="btn btn-primary">Contact Me</a>
-          <a href="#projects" class="btn btn-outline">View Projects</a>
+          <a href="#projects" class="btn btn-outline">View Stats</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SKILLS -->
 <section>
   <div class="container">
     <h2 class="section-title">Skills</h2>
     <div class="skills-grid">
-      <div class="skill-card"><div class="icon">🌐</div><div class="name">HTML5</div></div>
-      <div class="skill-card"><div class="icon">🎨</div><div class="name">CSS3</div></div>
-      <div class="skill-card"><div class="icon">⚡</div><div class="name">JavaScript</div></div>
-      <div class="skill-card"><div class="icon">🟢</div><div class="name">Node.js</div></div>
-      <div class="skill-card"><div class="icon">🔌</div><div class="name">WebSocket</div></div>
-      <div class="skill-card"><div class="icon">📱</div><div class="name">Android/APK</div></div>
-      <div class="skill-card"><div class="icon">🖥️</div><div class="name">Termux</div></div>
-      <div class="skill-card"><div class="icon">🔧</div><div class="name">Git/GitHub</div></div>
+      <div class="skill-card"><div class="icon">🎯</div><div class="name">Aim Master</div></div>
+      <div class="skill-card"><div class="icon">🃏</div><div class="name">Jackaroo</div></div>
+      <div class="skill-card"><div class="icon">⚡</div><div class="name">Speed</div></div>
+      <div class="skill-card"><div class="icon">🧠</div><div class="name">Strategy</div></div>
+      <div class="skill-card"><div class="icon">🎲</div><div class="name">Luck</div></div>
+      <div class="skill-card"><div class="icon">🏆</div><div class="name">Ranked</div></div>
+      <div class="skill-card"><div class="icon">💬</div><div class="name">Team Work</div></div>
+      <div class="skill-card"><div class="icon">🔥</div><div class="name">Win Streak</div></div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <h2 class="section-title">Projects</h2>
+    <h2 class="section-title">Achievements</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <h3>WebSocket Client</h3>
-        <p>Real-time communication tool with custom protocol handling and live data sync.</p>
-        <div class="tech">
-          <span>JavaScript</span>
-          <span>WebSocket</span>
-          <span>Node.js</span>
-        </div>
+        <h3>🏆 Tournament Winner</h3>
+        <p>Won multiple WePlay tournaments with dominant gameplay.</p>
+        <div class="tech"><span>Winner</span><span>Pro</span></div>
       </div>
       <div class="project-card">
-        <h3>Termux Server</h3>
-        <p>Lightweight HTTP server running on Android via Termux with public tunneling.</p>
-        <div class="tech">
-          <span>Node.js</span>
-          <span>Termux</span>
-          <span>Cloudflared</span>
-        </div>
+        <h3>🎯 Top Ranked</h3>
+        <p>Consistently ranked among top players on the leaderboard.</p>
+        <div class="tech"><span>Top 100</span><span>Ranked</span></div>
       </div>
       <div class="project-card">
-        <h3>Custom APK Builder</h3>
-        <p>Converted web projects into installable Android APK with custom branding.</p>
-        <div class="tech">
-          <span>Android</span>
-          <span>HTML5</span>
-          <span>WebView</span>
-        </div>
+        <h3>🎮 Jackaroo Master</h3>
+        <p>Mastered all card combinations and strategies in Jackaroo.</p>
+        <div class="tech"><span>Jackaroo</span><span>Cards</span></div>
       </div>
       <div class="project-card">
-        <h3>Real-time Data Parser</h3>
-        <p>Parse and process complex JSON/binary data streams with auto-detection logic.</p>
-        <div class="tech">
-          <span>JavaScript</span>
-          <span>JSON</span>
-          <span>Base64</span>
-        </div>
+        <h3>🔥 100+ Win Streak</h3>
+        <p>Achieved a massive win streak against various opponents.</p>
+        <div class="tech"><span>Streak</span><span>Legend</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <h2 class="section-title">Contact</h2>
+    <h2 class="section-title">Connect</h2>
     <div class="contact-links">
-      <a href="mailto:your@email.com" class="contact-link">
-        <span class="ci">📧</span>
-        <div>
-          <div class="ct">Email</div>
-          <div class="cs">your@email.com</div>
-        </div>
-      </a>
       <a href="https://github.com/mohitmahawar74758-png" class="contact-link" target="_blank">
         <span class="ci">💻</span>
-        <div>
-          <div class="ct">GitHub</div>
-          <div class="cs">@mohitmahawar74758-png</div>
-        </div>
+        <div><div class="ct">GitHub</div><div class="cs">@mohitmahawar74758-png</div></div>
       </a>
-      <a href="https://wa.me/91XXXXXXXXXX" class="contact-link" target="_blank">
-        <span class="ci">💬</span>
-        <div>
-          <div class="ct">WhatsApp</div>
-          <div class="cs">Message me</div>
-        </div>
+      <a href="#" class="contact-link">
+        <span class="ci">🎮</span>
+        <div><div class="ct">WePlay</div><div class="cs">UID: 384969427</div></div>
       </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container">
-    © 2026 Mohit Mahawar • Built with ❤️ from Termux
-  </div>
+  <div class="container">© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆 • All Rights Reserved</div>
 </footer>
+
+<script>
+(function loadAvatar() {
+  const box = document.getElementById('avatarBox');
+  const names = ['dp.jpg', 'dp.jpeg', 'dp.png'];
+  let i = 0;
+  function next() {
+    if (i >= names.length) return;
+    const img = new Image();
+    img.onload = () => {
+      box.innerHTML = '';
+      box.appendChild(img);
+    };
+    img.onerror = () => { i++; next(); };
+    img.src = names[i];
+  }
+  next();
+})();
+</script>
 
 </body>
 </html>
