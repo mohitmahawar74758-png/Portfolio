@@ -244,26 +244,16 @@ async function loadRequests() {
 
 async function approveRequest(deviceId) {
   try {
-    // Save to whitelist
     const wl = await getJsonFile('whitelist.json');
     if (!wl.content.approved) wl.content.approved = [];
     if (!wl.content.approved.includes(deviceId)) {
       wl.content.approved.push(deviceId);
       await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Approve ' + deviceId);
     }
-    // Remove from blocked if present
-    await unblockDevice(deviceId, true);
-    // Delete request
+    await removeFromBlocked(deviceId);
     await deleteRequest(deviceId);
-    
-    // INSTANT update — bina wait
-    const item = event.target.closest('.request-item');
-    if (item) item.style.opacity = '0.3';
-    event.target.textContent = '✅ DONE';
-    event.target.disabled = true;
-    
-    // Refresh both lists immediately
-    setTimeout(() => { loadRequests(); loadApproved(); }, 300);
+    loadRequests();
+    loadApproved();
   } catch (e) { alert('Error: ' + e.message); }
 }
 
@@ -271,9 +261,7 @@ async function rejectRequest(deviceId) {
   if (!confirm('Reject ' + deviceId + '?')) return;
   try {
     await deleteRequest(deviceId);
-    const item = event.target.closest('.request-item');
-    if (item) item.style.opacity = '0.3';
-    setTimeout(() => { loadRequests(); }, 300);
+    loadRequests();
   } catch (e) { alert('Error: ' + e.message); }
 }
 
@@ -294,6 +282,7 @@ async function loadApproved() {
     if (approved.length === 0) {
       list.innerHTML = '<div class="empty-state">📭 No devices approved</div>';
       document.getElementById('removeAllBtn').classList.add('hidden');
+      await loadBlocked();
       return;
     }
     
@@ -309,7 +298,6 @@ async function loadApproved() {
       </div>
     `).join('');
     
-    // Load blocked too
     await loadBlocked();
   } catch (e) { list.innerHTML = '<div class="empty-state" style="color:#fca5a5;">❌ ' + e.message + '</div>'; }
 }
@@ -325,7 +313,7 @@ async function removeApproved(deviceId) {
 }
 
 async function removeAllApproved() {
-  if (!confirm('⚠️ REMOVE ALL approved devices? Ye undo nahi hoga!')) return;
+  if (!confirm('⚠️ REMOVE ALL approved devices?')) return;
   if (!confirm('Pakka? Sab approved devices hat jayenge.')) return;
   try {
     const wl = await getJsonFile('whitelist.json');
@@ -340,14 +328,22 @@ async function removeAllApproved() {
 async function blockDevice(deviceId) {
   if (!confirm('Block ' + deviceId + '?\n\nID blocked list me chali jayegi.\nAccess hat jayega, par ID save rahegi.')) return;
   try {
-    // Add to blocked
-    const bl = await getJsonFile('blocked.json');
+    const bl = await getJsonFile('blocked.json').catch(() => ({ content: { blocked: [] }, sha: null }));
     if (!bl.content.blocked) bl.content.blocked = [];
     if (!bl.content.blocked.includes(deviceId)) {
       bl.content.blocked.push(deviceId);
-      await updateJsonFile('blocked.json', bl.content, bl.sha, 'Block ' + deviceId);
+      if (bl.sha) {
+        await updateJsonFile('blocked.json', bl.content, bl.sha, 'Block ' + deviceId);
+      } else {
+        // File doesn't exist, create it
+        const createRes = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/blocked.json', {
+          method: 'PUT',
+          headers: { 'Authorization': 'token ' + cachedToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: 'Create blocked.json', content: btoa(JSON.stringify(bl.content, null, 2)), branch: 'main' })
+        });
+        if (!createRes.ok) throw new Error('Failed to create blocked.json');
+      }
     }
-    // Remove from approved
     const wl = await getJsonFile('whitelist.json');
     wl.content.approved = (wl.content.approved || []).filter(id => id !== deviceId);
     await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Remove ' + deviceId);
@@ -360,7 +356,7 @@ async function blockDevice(deviceId) {
 async function loadBlocked() {
   const list = document.getElementById('blockedList');
   try {
-    const { content } = await getJsonFile('blocked.json');
+    const { content } = await getJsonFile('blocked.json').catch(() => ({ content: { blocked: [] } }));
     const blocked = content.blocked || [];
     document.getElementById('blockedCount').textContent = blocked.length;
     
@@ -384,35 +380,35 @@ async function loadBlocked() {
   }
 }
 
-async function unblockDevice(deviceId, silent) {
+async function unblockDevice(deviceId) {
   try {
-    const bl = await getJsonFile('blocked.json').catch(() => ({ content: { blocked: [] }, sha: null }));
+    await removeFromBlocked(deviceId);
+    const wl = await getJsonFile('whitelist.json');
+    if (!wl.content.approved.includes(deviceId)) {
+      wl.content.approved.push(deviceId);
+      await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Re-approve ' + deviceId);
+    }
+    alert('✅ Unblocked: ' + deviceId);
+    loadApproved();
+  } catch (e) { alert('Error: ' + e.message); }
+}
+
+async function removeFromBlocked(deviceId) {
+  try {
+    const bl = await getJsonFile('blocked.json').catch(() => null);
+    if (!bl) return;
     if (bl.content.blocked && bl.content.blocked.includes(deviceId)) {
       bl.content.blocked = bl.content.blocked.filter(id => id !== deviceId);
-      if (bl.sha) {
-        await updateJsonFile('blocked.json', bl.content, bl.sha, 'Unblock ' + deviceId);
-      }
+      await updateJsonFile('blocked.json', bl.content, bl.sha, 'Unblock ' + deviceId);
     }
-    if (!silent) {
-      // Add back to approved
-      const wl = await getJsonFile('whitelist.json');
-      if (!wl.content.approved.includes(deviceId)) {
-        wl.content.approved.push(deviceId);
-        await updateJsonFile('whitelist.json', wl.content, wl.sha, 'Re-approve ' + deviceId);
-      }
-      alert('✅ Unblocked: ' + deviceId);
-      loadApproved();
-    }
-  } catch (e) { if (!silent) alert('Error: ' + e.message); }
+  } catch (e) {}
 }
 
 async function deleteBlocked(deviceId) {
   if (!confirm('Delete ' + deviceId + ' from blocked list?')) return;
   try {
-    const bl = await getJsonFile('blocked.json');
-    bl.content.blocked = (bl.content.blocked || []).filter(id => id !== deviceId);
-    await updateJsonFile('blocked.json', bl.content, bl.sha, 'Delete ' + deviceId);
-    loadApproved();
+    await removeFromBlocked(deviceId);
+    loadBlocked();
   } catch (e) { alert('Error: ' + e.message); }
 }
 
